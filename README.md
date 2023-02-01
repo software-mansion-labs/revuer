@@ -3,13 +3,17 @@
 Show statistics about Code Reviews on GitHub.
 
 ### User Stories
+
 As a **reviewer**, I want to:
-- know if I am too strict or too forgiving in my reviews, so that I can avoid extremes
-- know if I am too unresponsive compared to others, so that I can do code review faster
-- avoid integrating this utility, so that I can check statistics anonymously
-- know how many code reviews each reviewer does, so that I can decide if I should do more reviews or less
-- get stats from popular code hosting platforms, so that I can use this tool
+
+- determine if my reviews are consistently too strict or too lenient, in order to avoid extremes.
+- assess if my reviews are detailed enough, in order to decide if I need to spend more time on them.
+- be informed if I am slower in responding to code reviews compared to other reviewers, so I can improve my speed.
+- avoid integrating this tool into CI, so I have the option to use the utility anonymously.
+- be aware of the number of code reviews performed by each reviewer, in order to make informed decisions about my own workload.
+- use this tool with any major code hosting platform.
 
 As a **manager**, I want to:
-- know if there are reviewers with a bias towards certain developers, so that I can understand and resolve the problem
-- understand how team works, so that I have a context whenever I talk with developers
+- identify if there are any reviewers exhibiting bias towards specific developers, in order to understand and resolve the issue.
+- gain insight into how my team operates, in order to have context during interactions with developers.
+
