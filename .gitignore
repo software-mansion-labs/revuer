@@ -1,4 +1,6 @@
+/src/generated
 /.vscode
+.env
 
 # dependencies
 /node_modules
