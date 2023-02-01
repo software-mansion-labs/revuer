@@ -16,6 +16,7 @@ As a **reviewer**, I want to:
 As a **manager**, I want to:
 - identify if there are any reviewers exhibiting bias towards specific developers, in order to understand and resolve the issue.
 - gain insight into how my team operates, in order to have context during interactions with developers.
+- compare different repositories, to evaluate teams between each other.
 
 ## Happy path
 1. Paste a link to the repo
