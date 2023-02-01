@@ -1,11 +1,12 @@
 'use client'
 import { useState } from 'react'
 import { Url } from '~/core'
-import { GitHubConfigurationForm, GitHubConfigurationRenderer } from '~/github'
-import { Input, InputWrapper, Text } from '~/ui'
+import { GitHubConfiguration, useGitHubConfiguration } from '~/github'
+import { Button, Input, InputWrapper, Text } from '~/ui'
 
 export function HomeScreen() {
   const [repoUrl, setRepoUrl] = useState<Url>()
+  const { configuration, setConfiguration } = useGitHubConfiguration()
 
   return (
     <>
@@ -15,10 +16,14 @@ export function HomeScreen() {
           onChange={(value) => setRepoUrl(new Url(value))}
         />
       </InputWrapper>
-      <GitHubConfigurationRenderer
-        url={repoUrl}
-        renderConfiguration={() => <GitHubConfigurationForm />}
-      />
+      {repoUrl && (
+        <GitHubConfiguration
+          url={repoUrl}
+          configuration={configuration}
+          setConfiguration={setConfiguration}
+        />
+      )}
+      <Button onPress={() => {}} label='Generate stats' />
     </>
   )
 }
