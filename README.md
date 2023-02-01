@@ -18,7 +18,7 @@ As a **manager**, I want to:
 - gain insight into how my team operates, in order to have context during interactions with developers.
 
 ## Happy path
-1. Choose hosting platform
+1. Paste a link to the repo
 2. Configure hosting platform
 3. Set date range
 4. Fetch data
