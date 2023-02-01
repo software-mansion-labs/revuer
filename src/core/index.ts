@@ -1,1 +1,1 @@
-export * from './url.value-object'
+export * from './url-value-object'

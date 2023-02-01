@@ -1,1 +1,1 @@
-export * from './github-configuration.component'
+export * from './github-configuration'
