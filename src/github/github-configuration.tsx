@@ -13,11 +13,17 @@ export type GithubConfigurationData = {
   repositoryName: string
 }
 
-export const GitHubConfiguration: FC<{
+export type GithubConfigurationProps = {
   url: Url
   configuration: GithubConfigurationData
   setConfiguration: Dispatch<SetStateAction<GithubConfigurationData>>
-}> = ({ url, configuration, setConfiguration }) => {
+}
+
+export const GitHubConfiguration: FC<GithubConfigurationProps> = ({
+  url,
+  configuration,
+  setConfiguration,
+}) => {
   useEffect(
     function extractRepoInfoFromUrl() {
       setConfiguration((prev) => ({

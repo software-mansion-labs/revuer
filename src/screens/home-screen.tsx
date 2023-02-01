@@ -1,27 +1,30 @@
 'use client'
-import { useState } from 'react'
+import { FC } from 'react'
 import { Url } from '~/core'
-import { GitHubConfiguration, useGitHubConfiguration } from '~/github'
+import { GitHubConfiguration, GithubConfigurationProps } from '~/github'
 import { Button, Input, InputWrapper, Text } from '~/ui'
 
-export function HomeScreen() {
-  const [repoUrl, setRepoUrl] = useState<Url>()
-  const { configuration, setConfiguration } = useGitHubConfiguration()
+export type HomeScreenProps = {
+  repoUrl: Url | undefined
+  onRepoUrlChange: (url: Url | undefined) => void
+  gitHubConfigurationProps: Omit<GithubConfigurationProps, 'url'>
+}
 
+export const HomeScreen: FC<HomeScreenProps> = ({
+  repoUrl,
+  onRepoUrlChange,
+  gitHubConfigurationProps,
+}) => {
   return (
     <>
       <InputWrapper renderLabel={() => <Text value='Repo URL' />}>
         <Input
           value={repoUrl?.value}
-          onChange={(value) => setRepoUrl(new Url(value))}
+          onChange={(value) => onRepoUrlChange(new Url(value))}
         />
       </InputWrapper>
       {repoUrl && (
-        <GitHubConfiguration
-          url={repoUrl}
-          configuration={configuration}
-          setConfiguration={setConfiguration}
-        />
+        <GitHubConfiguration {...gitHubConfigurationProps} url={repoUrl} />
       )}
       <Button onPress={() => {}} label='Generate stats' />
     </>
