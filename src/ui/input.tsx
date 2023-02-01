@@ -2,8 +2,8 @@
 import { FC } from 'react'
 
 export const Input: FC<{
-  onChange: (value: string | undefined) => void
-  value: string | undefined
+  onChange: (value: string) => void
+  value: string
 }> = ({ onChange, value }) => {
   return (
     <input

@@ -2,9 +2,9 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { Url } from '~/core'
 import { Input, InputWrapper, Text } from '~/ui'
 import {
-  validateGitHubRepoLink,
-  extractRepositoryName,
   extractOrganizationName,
+  extractRepositoryName,
+  validateGitHubRepoLink,
 } from './github-repo-url'
 
 export type GithubConfigurationData = {
@@ -26,11 +26,19 @@ export const GitHubConfiguration: FC<GithubConfigurationProps> = ({
 }) => {
   useEffect(
     function extractRepoInfoFromUrl() {
-      setConfiguration((prev) => ({
-        ...prev,
-        organizationName: extractOrganizationName(url),
-        repositoryName: extractRepositoryName(url),
-      }))
+      if (validateGitHubRepoLink(url)) {
+        setConfiguration((prev) => ({
+          ...prev,
+          organizationName: extractOrganizationName(url),
+          repositoryName: extractRepositoryName(url),
+        }))
+      } else {
+        setConfiguration((prev) => ({
+          ...prev,
+          organizationName: '',
+          repositoryName: '',
+        }))
+      }
     },
     [url, setConfiguration]
   )
@@ -61,7 +69,7 @@ export const GitHubConfigurationForm: FC<{
 }> = ({ accessToken, onAccessTokenChange }) => {
   return (
     <InputWrapper renderLabel={() => <Text value='GitHub Access Token' />}>
-      <Input value={accessToken} onChange={onAccessTokenChange} />
+      <Input value={accessToken ?? ''} onChange={onAccessTokenChange} />
     </InputWrapper>
   )
 }
