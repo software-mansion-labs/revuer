@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { Url } from '~/core'
-import { Input } from '~/ui'
+import { Input, InputWrapper, Text } from '~/ui'
 import { validateGitHubRepoLink } from './github-repo-link-validator'
 
 export const GitHubConfigurationRenderer: FC<{
@@ -13,5 +13,9 @@ export const GitHubConfigurationRenderer: FC<{
 export const GitHubConfigurationForm: FC<{}> = ({}) => {
   const [] = useState()
 
-  return <Input value='' onChange={() => {}} />
+  return (
+    <InputWrapper renderLabel={() => <Text value='GitHub Access Token' />}>
+      <Input value='' onChange={() => {}} />
+    </InputWrapper>
+  )
 }
