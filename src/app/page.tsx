@@ -26,8 +26,7 @@ export default function Home() {
       onRepoUrlChange={setRepoUrl}
       gitHubConfigurationProps={{ configuration, setConfiguration }}
       onGenerateStatistics={async () => {
-        if (client)
-          setStatisticsData(await fetchPullRequests(client).toPromise())
+        if (client) setStatisticsData(await fetchPullRequests(client))
       }}
     />
   )
