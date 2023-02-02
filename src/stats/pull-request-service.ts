@@ -36,4 +36,8 @@ export class PullRequestService {
     }
     return usernameToReviewer
   }
+
+  getReviewers(): User[] {
+    return Object.values(this.getUsernameToReviewer())
+  }
 }

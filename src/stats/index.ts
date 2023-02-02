@@ -1,1 +1,1 @@
-export * from './code-review-stats'
+export * from './pull-request-service'

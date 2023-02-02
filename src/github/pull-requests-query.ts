@@ -83,7 +83,7 @@ function convertReviewStatus(
     case PullRequestReviewState.Approved:
       return 'APPROVED'
     case PullRequestReviewState.ChangesRequested:
-      return 'REJECTED'
+      return 'REQUESTED_CHANGES'
     case PullRequestReviewState.Commented:
       return 'COMMENTED'
     case PullRequestReviewState.Dismissed:
