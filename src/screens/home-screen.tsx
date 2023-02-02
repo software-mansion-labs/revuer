@@ -2,11 +2,13 @@
 import { FC } from 'react'
 import { Url } from '~/core'
 import { GitHubConfiguration, GithubConfigurationProps } from '~/github'
+import { ReviewersStatisticsTable, ReviewerStatistic } from '~/stats'
 import { Button, Input, InputWrapper, Text } from '~/ui'
 
 export type HomeScreenProps = {
   repoUrl: Url | undefined
   gitHubConfigurationProps: Omit<GithubConfigurationProps, 'url'>
+  statistics: ReviewerStatistic[] | undefined
   onRepoUrlChange: (url: Url | undefined) => void
   onGenerateStatistics: () => Promise<any>
 }
@@ -14,6 +16,7 @@ export type HomeScreenProps = {
 export const HomeScreen: FC<HomeScreenProps> = ({
   repoUrl,
   gitHubConfigurationProps,
+  statistics,
   onRepoUrlChange,
   onGenerateStatistics,
 }) => {
@@ -29,6 +32,9 @@ export const HomeScreen: FC<HomeScreenProps> = ({
         <GitHubConfiguration {...gitHubConfigurationProps} url={repoUrl} />
       )}
       <Button onPress={onGenerateStatistics} label='Generate stats' />
+      {statistics !== undefined && (
+        <ReviewersStatisticsTable statistics={statistics} />
+      )}
     </>
   )
 }

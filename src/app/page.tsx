@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Url } from '~/core'
 import {
   fetchPullRequests,
@@ -7,6 +7,7 @@ import {
   useGitHubGQLClient,
 } from '~/github'
 import { HomeScreen } from '~/screens'
+import { CodeReviewStatsUseCase, ReviewerStatistic } from '~/stats'
 
 export default function Home() {
   const [repoUrl, setRepoUrl] = useState<Url | undefined>(
@@ -14,20 +15,24 @@ export default function Home() {
   )
   const { configuration, setConfiguration } = useGitHubConfiguration()
   const client = useGitHubGQLClient(configuration.accessToken)
-  const [statisticsData, setStatisticsData] = useState<any>()
+  const [statistics, setStatistics] = useState<ReviewerStatistic[]>()
 
-  useEffect(() => {
-    console.log(statisticsData)
-  }, [statisticsData])
+  async function handleGenerateStatistics() {
+    if (client) {
+      const pullRequests = await fetchPullRequests(client)
+      const useCase = new CodeReviewStatsUseCase()
+      const stats = Object.values(useCase.execute(pullRequests))
+      setStatistics(stats)
+    }
+  }
 
   return (
     <HomeScreen
       repoUrl={repoUrl}
       onRepoUrlChange={setRepoUrl}
       gitHubConfigurationProps={{ configuration, setConfiguration }}
-      onGenerateStatistics={async () => {
-        if (client) setStatisticsData(await fetchPullRequests(client))
-      }}
+      onGenerateStatistics={handleGenerateStatistics}
+      statistics={statistics}
     />
   )
 }
