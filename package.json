@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "graphql-codegen --watch"
+    "codegen:watch": "graphql-codegen --watch",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "verify": "yarn type-check && yarn test",
+    "push": "yarn verify && git push"
   },
   "dependencies": {
     "@next/font": "13.1.6",
