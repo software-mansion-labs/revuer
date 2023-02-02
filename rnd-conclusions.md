@@ -1,2 +1,3 @@
 - "use client" related errors could be more meaningful
 - Stitches doesn't allow using sizes for margins and paddings
+- GitHub GraphQL schema could be used as a reference
