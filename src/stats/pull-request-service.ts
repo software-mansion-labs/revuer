@@ -40,4 +40,8 @@ export class PullRequestService {
   getReviewers(): User[] {
     return Object.values(this.getUsernameToReviewer())
   }
+
+  getReviews(): Review[] {
+    return this.pullRequest.reviews
+  }
 }
