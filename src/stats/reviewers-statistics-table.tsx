@@ -41,8 +41,8 @@ const columns = [
       return <Text value={formatPercentage(info.getValue())} align='end' />
     },
   }),
-  columnHelper.accessor('medianReviewedPRSizeInLOC', {
-    header: () => <HeaderText value='Median Reviewed PR Size [LOC]' />,
+  columnHelper.accessor('averagedReviewedPRSizeInLOC', {
+    header: () => <HeaderText value='Average Reviewed PR Size [LOC]' />,
     cell(info) {
       return <Text value={info.getValue().toFixed(0)} align='end' />
     },

@@ -55,7 +55,7 @@ it('should calculate stats correctly', () => {
 
   expect(stats['REVIEWER_1'].reviewsCount).toBe(4)
   expect(stats['REVIEWER_1'].requestingChangesProbability).toBe(0.5)
-  expect(stats['REVIEWER_1'].medianReviewedPRSizeInLOC).toBe((21 + 37) / 2)
+  expect(stats['REVIEWER_1'].averagedReviewedPRSizeInLOC).toBe((21 + 37) / 2)
   expect(stats['REVIEWER_1'].averageTotalReviewedPRCommentsCount).toBe(4.5)
   expect(stats['REVIEWER_1'].averageCommentsInReviewCount).toBe(6 / 4)
   expect(stats['REVIEWER_2'].reviewsCount).toBe(2)
