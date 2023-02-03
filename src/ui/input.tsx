@@ -24,9 +24,9 @@ const StyledInput = styled('input', {
   width: '100%',
   padding: 8,
   borderRadius: 8,
-  borderColor: '$background50',
-  borderWidth: 1,
+  borderColor: '$primary75',
+  borderWidth: 2,
   borderStyle: 'solid',
-  backgroundColor: '$background25',
+  backgroundColor: '$primary90',
   fontSize: 16,
 })
