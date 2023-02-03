@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useState } from 'react'
 import { Url } from '~/core'
 import {
@@ -28,12 +29,21 @@ export default function Home() {
   }
 
   return (
-    <HomeScreen
-      repoUrl={repoUrl}
-      onRepoUrlChange={setRepoUrl}
-      gitHubConfigurationProps={{ configuration, setConfiguration }}
-      onGenerateStatistics={handleGenerateStatistics}
-      statistics={statistics}
-    />
+    <>
+      <Head>
+        <title>Revue | GitHub Code Review Statistics</title>
+        <meta
+          name='description'
+          content="Optimize your code review process with our website that provides in-depth statistics from your Github repository. Get a clear picture of your team's review activity. Start using our website today for a better code review experience."
+        />
+      </Head>
+      <HomeScreen
+        repoUrl={repoUrl}
+        onRepoUrlChange={setRepoUrl}
+        gitHubConfigurationProps={{ configuration, setConfiguration }}
+        onGenerateStatistics={handleGenerateStatistics}
+        statistics={statistics}
+      />
+    </>
   )
 }
