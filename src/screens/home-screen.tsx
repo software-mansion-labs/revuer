@@ -1,4 +1,3 @@
-'use client'
 import { FC } from 'react'
 import { Url } from '~/core'
 import { GitHubConfiguration, GithubConfigurationProps } from '~/github'
