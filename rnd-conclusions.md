@@ -4,3 +4,5 @@
 - https://tanstack.com/ — table seems well designed
 - IQR
 - all: 'unset',
+- next 13 app + stitches fouc
+- next export not yet supported when using app dir
