@@ -45,6 +45,9 @@ export const HomeScreen: FC<HomeScreenProps> = ({
           disabled={!gitHubConfigurationProps.configuration.accessToken}
         />
         <Gutter />
+        <Gutter />
+        <Gutter />
+        <Gutter />
         {statistics !== undefined && (
           <ReviewersStatisticsTable statistics={statistics} />
         )}

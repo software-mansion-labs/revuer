@@ -5,6 +5,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { FC } from 'react'
+import { styled } from '~/styling'
+import { palette } from '~/styling/palette'
 import { Text } from '~/ui'
 import { ReviewerStatistics } from './code-review-stats-use-case'
 
@@ -57,7 +59,7 @@ const columns = [
   }),
 ]
 
-export const HeaderText = Text.Body
+export const HeaderText = Text.Label
 export const CellText = Text.Body
 
 function formatPercentage(value: number) {
@@ -74,7 +76,7 @@ export const ReviewersStatisticsTable: FC<{
   })
 
   return (
-    <table>
+    <Table>
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
@@ -102,26 +104,27 @@ export const ReviewersStatisticsTable: FC<{
           </tr>
         ))}
       </tbody>
-      <tfoot>
-        {table.getFooterGroups().map((footerGroup) => {
-          return (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => {
-                return (
-                  <th key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.footer,
-                          header.getContext()
-                        )}
-                  </th>
-                )
-              })}
-            </tr>
-          )
-        })}
-      </tfoot>
-    </table>
+    </Table>
   )
 }
+
+const Table = styled('table', {
+  borderWidth: 1,
+  borderStyle: 'solid',
+  borderColor: '$background90',
+  boxShadow: `0px 0px 16px ${palette.mint25}`,
+  borderRadius: 8,
+
+  th: {
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
+
+  td: {
+    padding: 8,
+  },
+
+  'tbody>tr:nth-child(odd)': {
+    backgroundColor: 'rgba(255,255,255, 0.03)',
+  },
+})
