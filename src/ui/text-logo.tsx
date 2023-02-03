@@ -2,12 +2,14 @@ import { FC } from 'react'
 import { FONTS, styled } from '~/styling'
 import { TextCore, TextCoreProps } from './text-core'
 
-export const TextBody: FC<TextCoreProps> = (props) => {
+export const TextLogo: FC<TextCoreProps> = (props) => {
   return (
-    <Container className={FONTS.default.className}>
+    <Container className={FONTS.logo.className}>
       <TextCore {...props} />
     </Container>
   )
 }
 
-const Container = styled('div', {})
+const Container = styled('div', {
+  fontSize: 64,
+})

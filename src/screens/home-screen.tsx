@@ -22,6 +22,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({
 }) => {
   return (
     <>
+      <Text.Logo value='REREV' />
       <InputWrapper renderLabel={() => <Text.Body value='Repository URL' />}>
         <Input
           type='url'
