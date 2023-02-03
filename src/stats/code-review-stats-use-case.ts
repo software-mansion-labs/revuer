@@ -65,6 +65,10 @@ export class ReviewerStatistic {
       .amean()
   }
 
+  get linesOfCodePerComment() {
+    return this.medianReviewedPRSizeInLOC / this.averageCommentsInReviewCount
+  }
+
   private reviews: Review[] = []
   private acceptedReviews: Review[] = []
   private requestedChangesReviews: Review[] = []

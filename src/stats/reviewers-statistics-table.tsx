@@ -21,12 +21,17 @@ const columns = [
       return <Text value={info.getValue().toString()} />
     },
   }),
-  columnHelper.accessor('requestingChangesProbability', {
+  columnHelper.accessor('linesOfCodePerComment', {
     cell(info) {
       return <Text value={info.getValue().toString()} />
     },
   }),
   columnHelper.accessor('notApprovingProbability', {
+    cell(info) {
+      return <Text value={info.getValue().toString()} />
+    },
+  }),
+  columnHelper.accessor('requestingChangesProbability', {
     cell(info) {
       return <Text value={info.getValue().toString()} />
     },
@@ -37,11 +42,6 @@ const columns = [
     },
   }),
   columnHelper.accessor('averageCommentsInReviewCount', {
-    cell(info) {
-      return <Text value={info.getValue().toString()} />
-    },
-  }),
-  columnHelper.accessor('averageTotalReviewedPRCommentsCount', {
     cell(info) {
       return <Text value={info.getValue().toString()} />
     },
