@@ -12,6 +12,8 @@ const QUERY = graphql(`
       pullRequests(last: 5) {
         edges {
           node {
+            additions
+            deletions
             author {
               login
             }
@@ -54,8 +56,10 @@ function convertPullRequestsQueryToPullRequests(
   const pullRequestEdges =
     pullRequestsQuery.repository?.pullRequests.edges ?? []
   for (const pullRequestEdge of pullRequestEdges) {
+    const pullRequestNode = pullRequestEdge?.node
+    if (!pullRequestNode) continue
     const reviews: Review[] = []
-    const reviewEdges = pullRequestEdge?.node?.reviews?.edges ?? []
+    const reviewEdges = pullRequestNode.reviews?.edges ?? []
     for (const reviewEdge of reviewEdges) {
       const commentNodes = reviewEdge?.node?.comments.nodes ?? []
       const isQuickResponse =
@@ -69,8 +73,9 @@ function convertPullRequestsQueryToPullRequests(
       }
     }
     pullRequests.push({
-      author: { username: pullRequestEdge?.node?.author?.login ?? '' },
+      author: { username: pullRequestNode.author?.login ?? '' },
       reviews: reviews,
+      sizeInLOC: pullRequestNode.additions + pullRequestNode.deletions,
     })
   }
   return pullRequests

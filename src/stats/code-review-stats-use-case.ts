@@ -58,6 +58,10 @@ export class ReviewerStatistic {
     return this.commentedReviewsCount / (this.acceptedReviewsCount || 1)
   }
 
+  get averageReviewedPRSizeInLOC() {
+    return 0
+  }
+
   constructor(public author: User) {}
 
   addReview(review: Review) {

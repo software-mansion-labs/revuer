@@ -10,6 +10,7 @@ function createPullRequestService(reviewStatuses: ReviewStatus[]) {
     author: { username: 'USER_2' },
   }))
   return new PullRequestService({
+    sizeInLOC: 42,
     author: { username: 'USER_1' },
     reviews,
   })
@@ -29,6 +30,7 @@ it('should retrieve requested changes count', () => {
 
 it('should create username to reviewer map', () => {
   const service = new PullRequestService({
+    sizeInLOC: 42,
     author: { username: 'USER_1' },
     reviews: [
       { author: { username: 'USER_1' }, status: 'COMMENTED' },

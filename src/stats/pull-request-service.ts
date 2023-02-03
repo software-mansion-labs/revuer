@@ -5,6 +5,7 @@ export type User = {
 export type PullRequest = {
   author: User
   reviews: Review[]
+  sizeInLOC: number
 }
 
 export type ReviewStatus =
