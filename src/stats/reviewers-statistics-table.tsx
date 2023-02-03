@@ -31,6 +31,11 @@ const columns = [
       return <Text value={info.getValue().toString()} />
     },
   }),
+  columnHelper.accessor('medianReviewedPRSizeInLOC', {
+    cell(info) {
+      return <Text value={info.getValue().toString()} />
+    },
+  }),
 ]
 
 export const ReviewersStatisticsTable: FC<{
