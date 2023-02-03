@@ -23,34 +23,42 @@ export const HomeScreen: FC<HomeScreenProps> = ({
   return (
     <Container>
       <ContentContainer>
-        <Text.Logo value='REVUE' align='center' />
-        <Gutter />
-        <InputWrapper
-          renderLabel={() => <Text.Label value='GitHub Repository URL' />}
-        >
-          <Input
-            type='url'
-            value={repoUrl?.value ?? ''}
-            placeholder='https://github.com/owner/repo'
-            onChange={(value) => onRepoUrlChange(new Url(value))}
+        <WidthLimiter>
+          <Text.Logo value='REVUE' align='center' />
+          <Text.Button
+            value='Code Review Statistics Generator'
+            align='center'
           />
-        </InputWrapper>
-        {repoUrl && (
-          <GitHubConfiguration {...gitHubConfigurationProps} url={repoUrl} />
-        )}
-        <Gutter />
-        <Button
-          onPress={onGenerateStatistics}
-          label='GENERATE STATS'
-          disabled={!gitHubConfigurationProps.configuration.accessToken}
-        />
-        <Gutter />
-        <Gutter />
-        <Gutter />
-        <Gutter />
-        {statistics !== undefined && (
-          <ReviewersStatisticsTable statistics={statistics} />
-        )}
+          <Gutter />
+          <Gutter />
+          <Gutter />
+          <InputWrapper
+            renderLabel={() => <Text.Label value='GitHub Repository URL' />}
+          >
+            <Input
+              type='url'
+              value={repoUrl?.value ?? ''}
+              placeholder='https://github.com/owner/repo'
+              onChange={(value) => onRepoUrlChange(new Url(value))}
+            />
+          </InputWrapper>
+          {repoUrl && (
+            <GitHubConfiguration {...gitHubConfigurationProps} url={repoUrl} />
+          )}
+          <Gutter />
+          <Button
+            onPress={onGenerateStatistics}
+            label='GENERATE STATS'
+            disabled={!gitHubConfigurationProps.configuration.accessToken}
+          />
+          <Gutter />
+          <Gutter />
+          <Gutter />
+          <Gutter />
+          {statistics !== undefined && (
+            <ReviewersStatisticsTable statistics={statistics} />
+          )}
+        </WidthLimiter>
       </ContentContainer>
       <Gradient />
     </Container>
@@ -71,6 +79,14 @@ const ContentContainer = styled('div', {
   padding: 16,
   absoluteFill: true,
   zIndex: 1,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+})
+
+const WidthLimiter = styled('div', {
+  maxWidth: 1200,
+  flex: 1,
   display: 'flex',
   flexDirection: 'column',
 })
