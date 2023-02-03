@@ -54,8 +54,15 @@ export class ReviewerStatistic {
   }
 
   get averageTotalReviewedPRCommentsCount() {
-    const prs = this.reviewedPullRequests
-    return new Stats().push(prs.map((pr) => pr.totalCommentsCount)).amean()
+    return new Stats()
+      .push(this.reviewedPullRequests.map((pr) => pr.totalCommentsCount))
+      .amean()
+  }
+
+  get averageCommentsInReviewCount() {
+    return new Stats()
+      .push(this.reviews.map((pr) => pr.totalCommentsCount))
+      .amean()
   }
 
   private reviews: Review[] = []

@@ -36,6 +36,11 @@ const columns = [
       return <Text value={info.getValue().toString()} />
     },
   }),
+  columnHelper.accessor('averageCommentsInReviewCount', {
+    cell(info) {
+      return <Text value={info.getValue().toString()} />
+    },
+  }),
   columnHelper.accessor('averageTotalReviewedPRCommentsCount', {
     cell(info) {
       return <Text value={info.getValue().toString()} />
