@@ -3,3 +3,4 @@
 - GitHub GraphQL schema could be used as a reference
 - https://tanstack.com/ — table seems well designed
 - IQR
+- all: 'unset',
