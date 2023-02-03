@@ -16,6 +16,7 @@ const QUERY = graphql(`
       pullRequests(last: $lastMergedPullRequestsCount, states: [MERGED]) {
         edges {
           node {
+            id
             additions
             deletions
             author {
@@ -70,6 +71,7 @@ function convertPullRequestsQueryToPullRequests(
     const pullRequestNode = pullRequestEdge?.node
     if (!pullRequestNode) continue
     const pullRequest: PullRequest = {
+      id: pullRequestNode.id,
       author: { username: pullRequestNode.author?.login ?? '' },
       sizeInLOC: pullRequestNode.additions + pullRequestNode.deletions,
       reviews: [],

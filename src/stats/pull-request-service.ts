@@ -3,6 +3,7 @@ export type User = {
 }
 
 export type PullRequest = {
+  id: string
   author: User
   reviews: Review[]
   sizeInLOC: number

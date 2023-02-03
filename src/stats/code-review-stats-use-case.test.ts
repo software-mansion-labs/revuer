@@ -6,6 +6,7 @@ it('should calculate stats correctly', () => {
 
   const stats = useCase.execute([
     new PullRequestService({
+      id: '_',
       sizeInLOC: 21,
       author: { username: '_' },
       reviews: [],
@@ -19,6 +20,7 @@ it('should calculate stats correctly', () => {
       .addReview({ author: { username: 'REVIEWER_1' }, status: 'APPROVED' })
       .toPullRequest(),
     new PullRequestService({
+      id: '_',
       sizeInLOC: 37,
       author: { username: '_' },
       reviews: [],
