@@ -1,3 +1,4 @@
+import { Stats } from 'fast-stats'
 import {
   PullRequest,
   PullRequestService,
@@ -58,9 +59,12 @@ export class ReviewerStatistic {
     return this.commentedReviewsCount / (this.acceptedReviewsCount || 1)
   }
 
-  get averageReviewedPRSizeInLOC() {
-    // new Stats({buckets:})
-    return 0
+  get medianReviewedPRSizeInLOC() {
+    const pullRequestSizes = this.reviews.map((review) => {
+      return review.pullRequest.sizeInLOC
+    })
+    const median = new Stats().push(pullRequestSizes).median()
+    return median
   }
 
   constructor(public author: User) {}
