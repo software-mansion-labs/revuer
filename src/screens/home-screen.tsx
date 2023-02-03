@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Url } from '~/core'
 import { GitHubConfiguration, GithubConfigurationProps } from '~/github'
 import { ReviewersStatisticsTable, ReviewerStatistics } from '~/stats'
+import { styled } from '~/styling'
 import { Button, Input, InputWrapper, Text } from '~/ui'
 
 export type HomeScreenProps = {
@@ -20,8 +21,9 @@ export const HomeScreen: FC<HomeScreenProps> = ({
   onGenerateStatistics,
 }) => {
   return (
-    <>
-      <Text.Logo value='REREV' />
+    <Container>
+      <Text.Logo value='REREVIEW' align='center' />
+      <Gutter />
       <InputWrapper
         renderLabel={() => <Text.Label value='GitHub Repository URL' />}
       >
@@ -35,10 +37,27 @@ export const HomeScreen: FC<HomeScreenProps> = ({
       {repoUrl && (
         <GitHubConfiguration {...gitHubConfigurationProps} url={repoUrl} />
       )}
-      <Button onPress={onGenerateStatistics} label='Generate stats' />
+      <Gutter />
+      <Button
+        onPress={onGenerateStatistics}
+        label='GENERATE STATS'
+        disabled={!gitHubConfigurationProps.configuration.accessToken}
+      />
+      <Gutter />
       {statistics !== undefined && (
         <ReviewersStatisticsTable statistics={statistics} />
       )}
-    </>
+    </Container>
   )
 }
+
+const Container = styled('div', {
+  padding: 16,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+})
+
+const Gutter = styled('div', {
+  height: 16,
+})

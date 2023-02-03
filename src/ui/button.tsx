@@ -3,20 +3,24 @@ import { FC } from 'react'
 import { styled } from '~/styling'
 import { Text } from './text'
 
-export const Button: FC<{ label: string; onPress: () => void }> = ({
-  label,
-  onPress,
-}) => {
+export const Button: FC<{
+  label: string
+  onPress: () => void
+  disabled?: boolean
+}> = ({ label, onPress, disabled }) => {
   return (
-    <StyledButton onClick={onPress}>
-      <Text.Body value={label} />
+    <StyledButton
+      css={{ backgroundColor: disabled ? '$background75' : '$primary75' }}
+      onClick={disabled ? undefined : onPress}
+      disabled={disabled}
+    >
+      <Text.Button value={label} />
     </StyledButton>
   )
 }
 
 const StyledButton = styled(ButtonUnstyled, {
   padding: 16,
-  backgroundColor: '$primary75',
   borderRadius: 8,
   borderStyle: 'solid',
   borderWidth: 2,
