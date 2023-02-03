@@ -2,13 +2,13 @@
 import { FC } from 'react'
 import { Url } from '~/core'
 import { GitHubConfiguration, GithubConfigurationProps } from '~/github'
-import { ReviewersStatisticsTable, ReviewerStatistic } from '~/stats'
+import { ReviewersStatisticsTable, ReviewerStatistics } from '~/stats'
 import { Button, Input, InputWrapper, Text } from '~/ui'
 
 export type HomeScreenProps = {
   repoUrl: Url | undefined
   gitHubConfigurationProps: Omit<GithubConfigurationProps, 'url'>
-  statistics: ReviewerStatistic[] | undefined
+  statistics: ReviewerStatistics[] | undefined
   onRepoUrlChange: (url: Url | undefined) => void
   onGenerateStatistics: () => Promise<any>
 }

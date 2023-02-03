@@ -7,7 +7,7 @@ import {
   useGitHubGQLClient,
 } from '~/github'
 import { HomeScreen } from '~/screens'
-import { CodeReviewStatsUseCase, ReviewerStatistic } from '~/stats'
+import { CodeReviewStatsUseCase, ReviewerStatistics } from '~/stats'
 
 export default function Home() {
   const [repoUrl, setRepoUrl] = useState<Url | undefined>(
@@ -15,7 +15,7 @@ export default function Home() {
   )
   const { configuration, setConfiguration } = useGitHubConfiguration()
   const client = useGitHubGQLClient(configuration.accessToken)
-  const [statistics, setStatistics] = useState<ReviewerStatistic[]>()
+  const [statistics, setStatistics] = useState<ReviewerStatistics[]>()
 
   async function handleGenerateStatistics() {
     if (client) {

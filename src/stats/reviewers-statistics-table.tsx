@@ -6,9 +6,9 @@ import {
 } from '@tanstack/react-table'
 import { FC } from 'react'
 import { Text } from '~/ui'
-import { ReviewerStatistic } from './code-review-stats-use-case'
+import { ReviewerStatistics } from './code-review-stats-use-case'
 
-const columnHelper = createColumnHelper<ReviewerStatistic>()
+const columnHelper = createColumnHelper<ReviewerStatistics>()
 
 const columns = [
   columnHelper.accessor('author.username', {
@@ -62,7 +62,7 @@ function formatPercentage(value: number) {
 }
 
 export const ReviewersStatisticsTable: FC<{
-  statistics: ReviewerStatistic[]
+  statistics: ReviewerStatistics[]
 }> = ({ statistics }) => {
   const table = useReactTable({
     data: statistics,

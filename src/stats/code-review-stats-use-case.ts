@@ -7,12 +7,12 @@ import {
 } from './pull-request-service'
 
 export class CodeReviewStatsUseCase {
-  execute(pullRequests: PullRequest[]): Record<string, ReviewerStatistic> {
-    const usernameToStatsData: Record<string, ReviewerStatistic> = {}
+  execute(pullRequests: PullRequest[]): Record<string, ReviewerStatistics> {
+    const usernameToStatsData: Record<string, ReviewerStatistics> = {}
     for (const service of this.createPRServices(pullRequests)) {
       for (const review of service.getReviews()) {
         if (!usernameToStatsData[review.author.username]) {
-          usernameToStatsData[review.author.username] = new ReviewerStatistic(
+          usernameToStatsData[review.author.username] = new ReviewerStatistics(
             review.author
           )
         }
@@ -29,7 +29,7 @@ export class CodeReviewStatsUseCase {
   }
 }
 
-export class ReviewerStatistic {
+export class ReviewerStatistics {
   get reviewsCount() {
     return this.reviews.length
   }
