@@ -85,7 +85,9 @@ export const GitHubConfigurationForm: FC<{
 }) => {
   return (
     <>
-      <InputWrapper renderLabel={() => <Text value='GitHub Access Token' />}>
+      <InputWrapper
+        renderLabel={() => <Text value='GitHub Access Token (classic)' />}
+      >
         <Input value={accessToken ?? ''} onChange={onAccessTokenChange} />
       </InputWrapper>
       <InputWrapper
