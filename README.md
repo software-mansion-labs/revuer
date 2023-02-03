@@ -5,7 +5,6 @@ Show statistics about Code Reviews on GitHub.
 ### User Stories
 
 As a **reviewer**, I want to:
-
 - determine if my reviews are consistently too strict or too lenient, in order to avoid extremes.
 - assess if my reviews are detailed enough, in order to decide if I need to spend more time on them.
 - be informed if I am slower in responding to code reviews compared to other reviewers, so I can improve my speed.
@@ -19,9 +18,3 @@ As a **manager**, I want to:
 - compare different repositories, to evaluate teams between each other.
 - find aggressive conversations (semantic analysis), to understand and resolve the root cause.
 
-## Happy path
-1. Paste a link to the repo
-2. Configure hosting platform
-3. Set date range
-4. Fetch data
-5. Analyze statistics
