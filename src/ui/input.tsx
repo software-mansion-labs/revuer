@@ -1,5 +1,5 @@
 'use client'
-import { InputUnstyled } from '@mui/base'
+
 import { FC } from 'react'
 import { styled } from '~/styling'
 
@@ -9,8 +9,7 @@ export const Input: FC<{
   type?: 'text' | 'url' | 'password' | 'number'
 }> = ({ onChange, value, type }) => {
   return (
-    <InputUnstyled
-      slots={{ input: StyledInput }}
+    <StyledInput
       onChange={(e) => {
         onChange(e.target.value)
       }}
@@ -29,4 +28,5 @@ const StyledInput = styled('input', {
   borderStyle: 'solid',
   backgroundColor: '$primary90',
   fontSize: 16,
+  color: '$text00',
 })

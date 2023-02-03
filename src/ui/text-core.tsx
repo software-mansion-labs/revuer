@@ -10,4 +10,6 @@ export const TextCore: FC<TextCoreProps> = ({ value, align }) => {
   return <Container css={{ textAlign: align }}>{value}</Container>
 }
 
-const Container = styled('div', {})
+const Container = styled('div', {
+  color: '$text00',
+})
