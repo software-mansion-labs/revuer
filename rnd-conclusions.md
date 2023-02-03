@@ -2,3 +2,4 @@
 - Stitches doesn't allow using sizes for margins and paddings
 - GitHub GraphQL schema could be used as a reference
 - https://tanstack.com/ — table seems well designed
+- IQR
