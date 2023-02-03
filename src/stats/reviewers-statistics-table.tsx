@@ -21,12 +21,12 @@ const columns = [
       return <Text value={info.getValue().toString()} />
     },
   }),
-  columnHelper.accessor('requestedChangesPerAccepted', {
+  columnHelper.accessor('requestingChangesProbability', {
     cell(info) {
       return <Text value={info.getValue().toString()} />
     },
   }),
-  columnHelper.accessor('commentedPerAccepted', {
+  columnHelper.accessor('notApprovingProbability', {
     cell(info) {
       return <Text value={info.getValue().toString()} />
     },

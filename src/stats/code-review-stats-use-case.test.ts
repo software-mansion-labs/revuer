@@ -33,7 +33,7 @@ it('should calculate stats correctly', () => {
 
   expect(stats['REVIEWER_1'].reviewsCount).toBe(4)
   expect(stats['REVIEWER_2'].reviewsCount).toBe(2)
-  expect(stats['REVIEWER_1'].requestedChangesPerAccepted).toBe(1)
-  expect(stats['REVIEWER_2'].commentedPerAccepted).toBe(1)
+  expect(stats['REVIEWER_1'].requestingChangesProbability).toBe(0.5)
+  expect(stats['REVIEWER_2'].notApprovingProbability).toBe(0.5)
   expect(stats['REVIEWER_1'].medianReviewedPRSizeInLOC).toBe((21 + 37) / 2)
 })

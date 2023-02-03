@@ -34,12 +34,15 @@ export class ReviewerStatistic {
     return this.reviews.length
   }
 
-  get requestedChangesPerAccepted() {
-    return this.requestedChangesReviewsCount / (this.acceptedReviewsCount || 1)
+  get requestingChangesProbability() {
+    return this.requestedChangesReviewsCount / (this.reviewsCount || 1)
   }
 
-  get commentedPerAccepted() {
-    return this.commentedReviewsCount / (this.acceptedReviewsCount || 1)
+  get notApprovingProbability() {
+    return (
+      (this.requestedChangesReviewsCount + this.commentedReviewsCount) /
+      (this.reviewsCount || 1)
+    )
   }
 
   get medianReviewedPRSizeInLOC() {
