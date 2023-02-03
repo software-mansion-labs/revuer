@@ -88,7 +88,11 @@ export const GitHubConfigurationForm: FC<{
       <InputWrapper
         renderLabel={() => <Text value='GitHub Access Token (classic)' />}
       >
-        <Input value={accessToken ?? ''} onChange={onAccessTokenChange} />
+        <Input
+          type='password'
+          value={accessToken ?? ''}
+          onChange={onAccessTokenChange}
+        />
       </InputWrapper>
       <InputWrapper
         renderLabel={() => (
@@ -96,6 +100,7 @@ export const GitHubConfigurationForm: FC<{
         )}
       >
         <Input
+          type='number'
           value={lastMergedPullRequestsCount?.toString() ?? '0'}
           onChange={(value) => {
             const count = parseInt(value)

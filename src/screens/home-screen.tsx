@@ -22,8 +22,9 @@ export const HomeScreen: FC<HomeScreenProps> = ({
 }) => {
   return (
     <>
-      <InputWrapper renderLabel={() => <Text value='Repo URL' />}>
+      <InputWrapper renderLabel={() => <Text value='Repository URL' />}>
         <Input
+          type='url'
           value={repoUrl?.value ?? ''}
           onChange={(value) => onRepoUrlChange(new Url(value))}
         />
