@@ -5,14 +5,16 @@ export const Input: FC<{
   onChange: (value: string) => void
   value: string
   type?: 'text' | 'url' | 'password' | 'number'
-}> = ({ onChange, value, type }) => {
+  min?: number
+  max?: number
+  placeholder?: string
+}> = ({ onChange, ...props }) => {
   return (
     <StyledInput
       onChange={(e) => {
         onChange(e.target.value)
       }}
-      value={value}
-      type={type}
+      {...props}
     />
   )
 }

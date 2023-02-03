@@ -22,10 +22,13 @@ export const HomeScreen: FC<HomeScreenProps> = ({
   return (
     <>
       <Text.Logo value='REREV' />
-      <InputWrapper renderLabel={() => <Text.Body value='Repository URL' />}>
+      <InputWrapper
+        renderLabel={() => <Text.Label value='GitHub Repository URL' />}
+      >
         <Input
           type='url'
           value={repoUrl?.value ?? ''}
+          placeholder='https://github.com/owner/repo'
           onChange={(value) => onRepoUrlChange(new Url(value))}
         />
       </InputWrapper>

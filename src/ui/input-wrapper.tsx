@@ -22,4 +22,5 @@ const Container = styled('div', {
 const Row = styled('div', {
   display: 'flex',
   flex: 1,
+  marginBottom: 8,
 })

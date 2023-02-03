@@ -86,7 +86,9 @@ export const GitHubConfigurationForm: FC<{
   return (
     <>
       <InputWrapper
-        renderLabel={() => <Text.Body value='GitHub Access Token (classic)' />}
+        renderLabel={() => (
+          <Text.Label value='GitHub Classic Personal Access Token' />
+        )}
       >
         <Input
           type='password'
@@ -96,11 +98,13 @@ export const GitHubConfigurationForm: FC<{
       </InputWrapper>
       <InputWrapper
         renderLabel={() => (
-          <Text.Body value='Number of Recently Merged Pull Requests (Max 100)' />
+          <Text.Label value='Number of Recently Merged Pull Requests (max 100)' />
         )}
       >
         <Input
           type='number'
+          min={1}
+          max={100}
           value={lastMergedPullRequestsCount?.toString() ?? '0'}
           onChange={(value) => {
             const count = parseInt(value)
