@@ -59,6 +59,7 @@ export class ReviewerStatistic {
   }
 
   get averageReviewedPRSizeInLOC() {
+    // new Stats({buckets:})
     return 0
   }
 

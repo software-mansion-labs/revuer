@@ -1,4 +1,5 @@
 import {
+  PullRequest,
   PullRequestService,
   Review,
   ReviewStatus,
@@ -8,7 +9,14 @@ function createPullRequestService(reviewStatuses: ReviewStatus[]) {
   const reviews = reviewStatuses.map<Review>((reviewStatus) => ({
     status: reviewStatus,
     author: { username: 'USER_2' },
+    pullRequest,
   }))
+  const pullRequest: PullRequest = {
+    sizeInLOC: 42,
+    author: { username: 'USER_1' },
+    reviews,
+  }
+
   return new PullRequestService({
     sizeInLOC: 42,
     author: { username: 'USER_1' },
@@ -29,13 +37,23 @@ it('should retrieve requested changes count', () => {
 })
 
 it('should create username to reviewer map', () => {
+  const pullRequest: PullRequest = {
+    sizeInLOC: 42,
+    author: { username: 'USER_1' },
+    reviews: [],
+  }
+
   const service = new PullRequestService({
     sizeInLOC: 42,
     author: { username: 'USER_1' },
     reviews: [
-      { author: { username: 'USER_1' }, status: 'COMMENTED' },
-      { author: { username: 'USER_2' }, status: 'APPROVED' },
-      { author: { username: 'USER_3' }, status: 'REQUESTED_CHANGES' },
+      { author: { username: 'USER_1' }, status: 'COMMENTED', pullRequest },
+      { author: { username: 'USER_2' }, status: 'APPROVED', pullRequest },
+      {
+        author: { username: 'USER_3' },
+        status: 'REQUESTED_CHANGES',
+        pullRequest,
+      },
     ],
   })
 

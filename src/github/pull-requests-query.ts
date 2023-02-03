@@ -58,6 +58,11 @@ function convertPullRequestsQueryToPullRequests(
   for (const pullRequestEdge of pullRequestEdges) {
     const pullRequestNode = pullRequestEdge?.node
     if (!pullRequestNode) continue
+    const pullRequest: PullRequest = {
+      author: { username: pullRequestNode.author?.login ?? '' },
+      sizeInLOC: pullRequestNode.additions + pullRequestNode.deletions,
+      reviews: [],
+    }
     const reviews: Review[] = []
     const reviewEdges = pullRequestNode.reviews?.edges ?? []
     for (const reviewEdge of reviewEdges) {
@@ -69,14 +74,12 @@ function convertPullRequestsQueryToPullRequests(
         reviews.push({
           author: { username: reviewEdge?.node?.author?.login ?? '' },
           status: convertReviewStatus(reviewEdge?.node?.state),
+          pullRequest: pullRequest,
         })
       }
     }
-    pullRequests.push({
-      author: { username: pullRequestNode.author?.login ?? '' },
-      reviews: reviews,
-      sizeInLOC: pullRequestNode.additions + pullRequestNode.deletions,
-    })
+    pullRequest.reviews = reviews
+    pullRequests.push(pullRequest)
   }
   return pullRequests
 }

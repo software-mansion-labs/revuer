@@ -18,10 +18,20 @@ export type ReviewStatus =
 export type Review = {
   author: User
   status: ReviewStatus
+  pullRequest: PullRequest
 }
 
 export class PullRequestService {
   constructor(private pullRequest: PullRequest) {}
+
+  addReview(review: Omit<Review, 'pullRequest'>) {
+    this.pullRequest.reviews.push({ ...review, pullRequest: this.pullRequest })
+    return this
+  }
+
+  toPullRequest(): PullRequest {
+    return this.pullRequest
+  }
 
   getRequestedChangesCount() {
     return this.pullRequest.reviews.filter(

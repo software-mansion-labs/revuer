@@ -1,22 +1,34 @@
 import { CodeReviewStatsUseCase } from './code-review-stats-use-case'
+import { PullRequestService } from './pull-request-service'
 
 it('should calculate stats correctly', () => {
   const useCase = new CodeReviewStatsUseCase()
 
   const stats = useCase.execute([
-    {
+    new PullRequestService({
+      sizeInLOC: 21,
       author: { username: '_' },
-      reviews: [
-        { author: { username: 'REVIEWER_1' }, status: 'REQUESTED_CHANGES' },
-        { author: { username: 'REVIEWER_2' }, status: 'COMMENTED' },
-        { author: { username: 'REVIEWER_2' }, status: 'APPROVED' },
-        { author: { username: 'REVIEWER_1' }, status: 'APPROVED' },
-      ],
-    },
-    {
+      reviews: [],
+    })
+      .addReview({
+        author: { username: 'REVIEWER_1' },
+        status: 'REQUESTED_CHANGES',
+      })
+      .addReview({ author: { username: 'REVIEWER_2' }, status: 'COMMENTED' })
+      .addReview({ author: { username: 'REVIEWER_2' }, status: 'APPROVED' })
+      .addReview({ author: { username: 'REVIEWER_1' }, status: 'APPROVED' })
+      .toPullRequest(),
+    new PullRequestService({
+      sizeInLOC: 37,
       author: { username: '_' },
-      reviews: [{ author: { username: 'REVIEWER_1' }, status: 'APPROVED' }],
-    },
+      reviews: [],
+    })
+      .addReview({
+        author: { username: 'REVIEWER_1' },
+        status: 'REQUESTED_CHANGES',
+      })
+      .addReview({ author: { username: 'REVIEWER_1' }, status: 'APPROVED' })
+      .toPullRequest(),
   ])
 
   expect(stats['REVIEWER_1'].reviewsCount).toBe(3)
