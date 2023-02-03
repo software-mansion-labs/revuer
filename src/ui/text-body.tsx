@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { FONTS, styled } from '~/styling'
 
-export const Text: FC<{
+export const TextBody: FC<{
   value: string
   align?: 'start' | 'center' | 'end'
 }> = ({ value, align }) => {

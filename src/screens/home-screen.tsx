@@ -22,7 +22,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({
 }) => {
   return (
     <>
-      <InputWrapper renderLabel={() => <Text value='Repository URL' />}>
+      <InputWrapper renderLabel={() => <Text.Body value='Repository URL' />}>
         <Input
           type='url'
           value={repoUrl?.value ?? ''}

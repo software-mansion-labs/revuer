@@ -9,7 +9,7 @@ export const Button: FC<{ label: string; onPress: () => void }> = ({
 }) => {
   return (
     <StyledButton onClick={onPress}>
-      <Text value={label} />
+      <Text.Body value={label} />
     </StyledButton>
   )
 }
