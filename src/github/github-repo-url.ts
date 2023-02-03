@@ -1,6 +1,6 @@
 import { AppError, Url } from '~/core'
 
-const GITHUB_REPO_REGEX = /^https:\/\/github.com\/([\w-]+)\/([\w-]+)\/?$/
+const GITHUB_REPO_REGEX = /^https:\/\/github.com\/([\w-]+)\/([\w.-]+)\/?$/
 
 export function validateGitHubRepoLink(url: Url) {
   if (!url.value) return false

@@ -7,9 +7,9 @@ import {
 import { PullRequest, Review, ReviewStatus } from '~/stats'
 
 const QUERY = graphql(`
-  query PullRequests {
-    repository(owner: "software-mansion", name: "protostar") {
-      pullRequests(last: 5) {
+  query PullRequests($repoOwner: String!, $repoName: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+      pullRequests(last: 10) {
         edges {
           node {
             additions
@@ -43,8 +43,11 @@ const QUERY = graphql(`
   }
 `)
 
-export async function fetchPullRequests(client: Client) {
-  const data = (await client.query(QUERY, {}).toPromise()).data
+export async function fetchPullRequests(
+  client: Client,
+  args: { repoOwner: string; repoName: string }
+) {
+  const data = (await client.query(QUERY, args).toPromise()).data
   return convertPullRequestsQueryToPullRequests(data)
 }
 

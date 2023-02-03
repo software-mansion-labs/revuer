@@ -19,7 +19,10 @@ export default function Home() {
 
   async function handleGenerateStatistics() {
     if (client) {
-      const pullRequests = await fetchPullRequests(client)
+      const pullRequests = await fetchPullRequests(client, {
+        repoName: configuration.repositoryName,
+        repoOwner: configuration.organizationName,
+      })
       const useCase = new CodeReviewStatsUseCase()
       const stats = Object.values(useCase.execute(pullRequests))
       setStatistics(stats)

@@ -13,6 +13,14 @@ it('should detect valid GitHub repo link', () => {
   expect(result).toBe(true)
 })
 
+it('should accept repo names with dot', () => {
+  const result = validateGitHubRepoLink(
+    new Url('https://github.com/ORGANIZATION_NAME/REPO_NAME.py')
+  )
+
+  expect(result).toBe(true)
+})
+
 it('should detect invalid GitHub repo link', () => {
   const result = validateGitHubRepoLink(
     new Url('https://github.com/ORGANIZATION_NAME')
@@ -31,8 +39,8 @@ it('should extract organization name from a valid link', () => {
 
 it('should extract repo name from a valid link', () => {
   const result = extractRepositoryName(
-    new Url('https://github.com/ORGANIZATION_NAME/REPO_NAME')
+    new Url('https://github.com/ORGANIZATION_NAME/REPO_NAME.py')
   )
 
-  expect(result).toBe('REPO_NAME')
+  expect(result).toBe('REPO_NAME.py')
 })
