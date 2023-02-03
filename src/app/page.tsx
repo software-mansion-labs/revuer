@@ -10,9 +10,7 @@ import { HomeScreen } from '~/screens'
 import { CodeReviewStatsUseCase, ReviewerStatistics } from '~/stats'
 
 export default function Home() {
-  const [repoUrl, setRepoUrl] = useState<Url | undefined>(
-    new Url('https://github.com/software-mansion/protostar')
-  )
+  const [repoUrl, setRepoUrl] = useState<Url>()
   const { configuration, setConfiguration } = useGitHubConfiguration()
   const client = useGitHubGQLClient(configuration.accessToken)
   const [statistics, setStatistics] = useState<ReviewerStatistics[]>()
