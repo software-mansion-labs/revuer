@@ -53,9 +53,10 @@ export class ReviewerStatistic {
     return median
   }
 
-  // get averageTotalReviewedPRCommentsCount() {
-  //   new Stats().push(this.reviewedPullRequests.map((pr) => pr.totalCommentsCount))
-  // }
+  get averageTotalReviewedPRCommentsCount() {
+    const prs = this.reviewedPullRequests
+    return new Stats().push(prs.map((pr) => pr.totalCommentsCount)).amean()
+  }
 
   private reviews: Review[] = []
   private acceptedReviews: Review[] = []

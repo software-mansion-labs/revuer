@@ -6,11 +6,11 @@ it('should calculate stats correctly', () => {
 
   const stats = useCase.execute([
     new PullRequestService({
-      id: '_',
+      id: 'pr1',
       sizeInLOC: 21,
       author: { username: '_' },
       reviews: [],
-      totalCommentsCount: 0,
+      totalCommentsCount: 3,
     })
       .addReview({
         author: { username: 'REVIEWER_1' },
@@ -21,11 +21,11 @@ it('should calculate stats correctly', () => {
       .addReview({ author: { username: 'REVIEWER_1' }, status: 'APPROVED' })
       .toPullRequest(),
     new PullRequestService({
-      id: '_',
+      id: 'pr2',
       sizeInLOC: 37,
       author: { username: '_' },
       reviews: [],
-      totalCommentsCount: 0,
+      totalCommentsCount: 1,
     })
       .addReview({
         author: { username: 'REVIEWER_1' },
@@ -40,4 +40,5 @@ it('should calculate stats correctly', () => {
   expect(stats['REVIEWER_1'].requestingChangesProbability).toBe(0.5)
   expect(stats['REVIEWER_2'].notApprovingProbability).toBe(0.5)
   expect(stats['REVIEWER_1'].medianReviewedPRSizeInLOC).toBe((21 + 37) / 2)
+  expect(stats['REVIEWER_1'].averageTotalReviewedPRCommentsCount).toBe(2)
 })
