@@ -10,7 +10,7 @@ export const Button: FC<{
 }> = ({ label, onPress, disabled }) => {
   return (
     <StyledButton
-      css={{ backgroundColor: disabled ? '$background75' : '$primary75' }}
+      state={disabled ? 'disabled' : 'active'}
       onClick={disabled ? undefined : onPress}
       disabled={disabled}
     >
@@ -24,5 +24,22 @@ const StyledButton = styled(ButtonUnstyled, {
   borderRadius: 8,
   borderStyle: 'solid',
   borderWidth: 2,
-  borderColor: '$primary90',
+
+  variants: {
+    state: {
+      active: {
+        backgroundColor: '$primary75',
+        borderColor: '$primary90',
+        cursor: 'pointer',
+
+        '&:hover': {
+          borderColor: '$primary50',
+        },
+      },
+      disabled: {
+        backgroundColor: '$background75',
+        borderColor: '$background50',
+      },
+    },
+  },
 })

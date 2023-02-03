@@ -1,4 +1,5 @@
 export const palette = {
+  mint05: 'hsl(190, 80%, 08%)',
   mint10: 'hsl(190, 80%, 10%)',
   mint25: 'hsl(190, 80%, 25%)',
   mint50: 'hsl(190, 80%, 50%)',

@@ -29,4 +29,7 @@ const StyledInput = styled('input', {
   backgroundColor: '$primary90',
   fontSize: 16,
   color: '$text00',
+  '&:hover': {
+    borderColor: '$primary50',
+  },
 })
