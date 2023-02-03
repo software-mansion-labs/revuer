@@ -6,3 +6,4 @@
 - all: 'unset',
 - next 13 app + stitches fouc
 - next export not yet supported when using app dir
+- stitches + ts - typos not highlighted
