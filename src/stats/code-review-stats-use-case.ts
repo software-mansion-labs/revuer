@@ -34,6 +34,30 @@ export class ReviewerStatistic {
   public requestedChangesReviews: Review[] = []
   public commentedReviews: Review[] = []
 
+  get reviewsCount() {
+    return this.reviews.length
+  }
+
+  get acceptedReviewsCount() {
+    return this.acceptedReviews.length
+  }
+
+  get commentedReviewsCount() {
+    return this.commentedReviews.length
+  }
+
+  get requestedChangesReviewsCount() {
+    return this.requestedChangesReviews.length
+  }
+
+  get requestedChangesPerAccepted() {
+    return this.requestedChangesReviewsCount / (this.acceptedReviewsCount || 1)
+  }
+
+  get commentedPerAccepted() {
+    return this.commentedReviewsCount / (this.acceptedReviewsCount || 1)
+  }
+
   constructor(public author: User) {}
 
   addReview(review: Review) {

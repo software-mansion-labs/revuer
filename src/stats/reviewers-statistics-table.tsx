@@ -5,15 +5,31 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { FC } from 'react'
+import { Text } from '~/ui'
 import { ReviewerStatistic } from './code-review-stats-use-case'
 
 const columnHelper = createColumnHelper<ReviewerStatistic>()
 
 const columns = [
   columnHelper.accessor('author.username', {
-    // cell(info) {
-    //   return <Text value='x' />
-    // },
+    cell(info) {
+      return <Text value={info.getValue()} />
+    },
+  }),
+  columnHelper.accessor('reviews', {
+    cell(info) {
+      return <Text value={info.getValue().length.toString()} />
+    },
+  }),
+  columnHelper.accessor('requestedChangesPerAccepted', {
+    cell(info) {
+      return <Text value={info.getValue().toString()} />
+    },
+  }),
+  columnHelper.accessor('commentedPerAccepted', {
+    cell(info) {
+      return <Text value={info.getValue().toString()} />
+    },
   }),
 ]
 
@@ -73,5 +89,4 @@ export const ReviewersStatisticsTable: FC<{
       </tfoot>
     </table>
   )
-  // return <div>{JSON.stringify(statistics, undefined, 4)}</div>
 }
