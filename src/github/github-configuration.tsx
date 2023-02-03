@@ -66,7 +66,7 @@ export function useGitHubConfiguration() {
     accessToken: '',
     organizationName: '',
     repositoryName: '',
-    lastMergedPullRequestsCount: 0,
+    lastMergedPullRequestsCount: 10,
   })
 
   return { configuration, setConfiguration }
