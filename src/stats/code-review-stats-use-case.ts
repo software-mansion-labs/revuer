@@ -66,6 +66,7 @@ export class ReviewerStatistic {
   }
 
   get linesOfCodePerComment() {
+    if (this.averageCommentsInReviewCount === 0) return 0
     return this.medianReviewedPRSizeInLOC / this.averageCommentsInReviewCount
   }
 
