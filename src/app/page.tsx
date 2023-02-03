@@ -22,6 +22,7 @@ export default function Home() {
       const pullRequests = await fetchPullRequests(client, {
         repoName: configuration.repositoryName,
         repoOwner: configuration.organizationName,
+        lastMergedPullRequestsCount: configuration.lastMergedPullRequestsCount,
       })
       const useCase = new CodeReviewStatsUseCase()
       const stats = Object.values(useCase.execute(pullRequests))

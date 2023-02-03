@@ -11,6 +11,7 @@ export type GithubConfigurationData = {
   accessToken: string
   organizationName: string
   repositoryName: string
+  lastMergedPullRequestsCount: number
 }
 
 export type GithubConfigurationProps = {
@@ -49,6 +50,13 @@ export const GitHubConfiguration: FC<GithubConfigurationProps> = ({
       onAccessTokenChange={(value) => {
         setConfiguration((prev) => ({ ...prev, accessToken: value ?? '' }))
       }}
+      lastMergedPullRequestsCount={configuration.lastMergedPullRequestsCount}
+      onLastMergedPullRequestsCountChange={(value) => {
+        setConfiguration((prev) => ({
+          ...prev,
+          lastMergedPullRequestsCount: value ?? 0,
+        }))
+      }}
     />
   ) : null
 }
@@ -58,6 +66,7 @@ export function useGitHubConfiguration() {
     accessToken: '',
     organizationName: '',
     repositoryName: '',
+    lastMergedPullRequestsCount: 0,
   })
 
   return { configuration, setConfiguration }
@@ -66,10 +75,33 @@ export function useGitHubConfiguration() {
 export const GitHubConfigurationForm: FC<{
   accessToken: string | undefined
   onAccessTokenChange: (accessToken: string | undefined) => void
-}> = ({ accessToken, onAccessTokenChange }) => {
+  lastMergedPullRequestsCount: number | undefined
+  onLastMergedPullRequestsCountChange: (value: number | undefined) => void
+}> = ({
+  accessToken,
+  onAccessTokenChange,
+  lastMergedPullRequestsCount,
+  onLastMergedPullRequestsCountChange,
+}) => {
   return (
-    <InputWrapper renderLabel={() => <Text value='GitHub Access Token' />}>
-      <Input value={accessToken ?? ''} onChange={onAccessTokenChange} />
-    </InputWrapper>
+    <>
+      <InputWrapper renderLabel={() => <Text value='GitHub Access Token' />}>
+        <Input value={accessToken ?? ''} onChange={onAccessTokenChange} />
+      </InputWrapper>
+      <InputWrapper
+        renderLabel={() => (
+          <Text value='Number of Recently Merged Pull Requests (Max 100)' />
+        )}
+      >
+        <Input
+          value={lastMergedPullRequestsCount?.toString() ?? '0'}
+          onChange={(value) => {
+            const count = parseInt(value)
+            if (isNaN(count)) return onLastMergedPullRequestsCountChange(0)
+            onLastMergedPullRequestsCountChange(count)
+          }}
+        />
+      </InputWrapper>
+    </>
   )
 }

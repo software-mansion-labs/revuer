@@ -7,9 +7,13 @@ import {
 import { PullRequest, Review, ReviewStatus } from '~/stats'
 
 const QUERY = graphql(`
-  query PullRequests($repoOwner: String!, $repoName: String!) {
+  query PullRequests(
+    $repoOwner: String!
+    $repoName: String!
+    $lastMergedPullRequestsCount: Int!
+  ) {
     repository(owner: $repoOwner, name: $repoName) {
-      pullRequests(last: 10) {
+      pullRequests(last: $lastMergedPullRequestsCount, states: [MERGED]) {
         edges {
           node {
             additions
@@ -45,7 +49,11 @@ const QUERY = graphql(`
 
 export async function fetchPullRequests(
   client: Client,
-  args: { repoOwner: string; repoName: string }
+  args: {
+    repoOwner: string
+    repoName: string
+    lastMergedPullRequestsCount: number
+  }
 ) {
   const data = (await client.query(QUERY, args).toPromise()).data
   return convertPullRequestsQueryToPullRequests(data)
