@@ -16,9 +16,9 @@ const columns = [
       return <Text value={info.getValue()} />
     },
   }),
-  columnHelper.accessor('reviews', {
+  columnHelper.accessor('reviewsCount', {
     cell(info) {
-      return <Text value={info.getValue().length.toString()} />
+      return <Text value={info.getValue().toString()} />
     },
   }),
   columnHelper.accessor('requestedChangesPerAccepted', {

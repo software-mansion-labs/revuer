@@ -30,25 +30,8 @@ export class CodeReviewStatsUseCase {
 }
 
 export class ReviewerStatistic {
-  public reviews: Review[] = []
-  public acceptedReviews: Review[] = []
-  public requestedChangesReviews: Review[] = []
-  public commentedReviews: Review[] = []
-
   get reviewsCount() {
     return this.reviews.length
-  }
-
-  get acceptedReviewsCount() {
-    return this.acceptedReviews.length
-  }
-
-  get commentedReviewsCount() {
-    return this.commentedReviews.length
-  }
-
-  get requestedChangesReviewsCount() {
-    return this.requestedChangesReviews.length
   }
 
   get requestedChangesPerAccepted() {
@@ -65,6 +48,23 @@ export class ReviewerStatistic {
     })
     const median = new Stats().push(pullRequestSizes).median()
     return median
+  }
+
+  private reviews: Review[] = []
+  private acceptedReviews: Review[] = []
+  private requestedChangesReviews: Review[] = []
+  private commentedReviews: Review[] = []
+
+  private get acceptedReviewsCount() {
+    return this.acceptedReviews.length
+  }
+
+  private get commentedReviewsCount() {
+    return this.commentedReviews.length
+  }
+
+  private get requestedChangesReviewsCount() {
+    return this.requestedChangesReviews.length
   }
 
   constructor(public author: User) {}
