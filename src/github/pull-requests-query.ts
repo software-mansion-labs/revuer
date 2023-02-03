@@ -19,6 +19,7 @@ const QUERY = graphql(`
             id
             additions
             deletions
+            totalCommentsCount
             author {
               login
             }
@@ -74,6 +75,7 @@ function convertPullRequestsQueryToPullRequests(
       id: pullRequestNode.id,
       author: { username: pullRequestNode.author?.login ?? '' },
       sizeInLOC: pullRequestNode.additions + pullRequestNode.deletions,
+      totalCommentsCount: pullRequestNode.totalCommentsCount ?? 0,
       reviews: [],
     }
     const reviews: Review[] = []

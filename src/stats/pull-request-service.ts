@@ -7,6 +7,7 @@ export type PullRequest = {
   author: User
   reviews: Review[]
   sizeInLOC: number
+  totalCommentsCount: number
 }
 
 export type ReviewStatus =

@@ -1,8 +1,4 @@
-import {
-  PullRequest,
-  PullRequestService,
-  ReviewStatus,
-} from './pull-request-service'
+import { PullRequestService, ReviewStatus } from './pull-request-service'
 
 function createPullRequestService(reviewStatuses: ReviewStatus[]) {
   const service = new PullRequestService({
@@ -10,6 +6,7 @@ function createPullRequestService(reviewStatuses: ReviewStatus[]) {
     sizeInLOC: 42,
     author: { username: 'USER_1' },
     reviews: [],
+    totalCommentsCount: 0,
   })
   for (const status of reviewStatuses) {
     service.addReview({
@@ -33,27 +30,24 @@ it('should retrieve requested changes count', () => {
 })
 
 it('should create username to reviewer map', () => {
-  const pullRequest: PullRequest = {
-    id: '_',
-    sizeInLOC: 42,
-    author: { username: 'USER_1' },
-    reviews: [],
-  }
-
   const service = new PullRequestService({
     id: '_',
     sizeInLOC: 42,
     author: { username: 'USER_1' },
-    reviews: [
-      { author: { username: 'USER_1' }, status: 'COMMENTED', pullRequest },
-      { author: { username: 'USER_2' }, status: 'APPROVED', pullRequest },
-      {
-        author: { username: 'USER_3' },
-        status: 'REQUESTED_CHANGES',
-        pullRequest,
-      },
-    ],
+    reviews: [],
+    totalCommentsCount: 1,
   })
+
+  service
+    .addReview({ author: { username: 'USER_1' }, status: 'COMMENTED' })
+    .addReview({
+      author: { username: 'USER_2' },
+      status: 'APPROVED',
+    })
+    .addReview({
+      author: { username: 'USER_3' },
+      status: 'REQUESTED_CHANGES',
+    })
 
   const result = service.getUsernameToReviewer()
 

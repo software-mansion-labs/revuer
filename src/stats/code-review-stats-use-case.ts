@@ -53,14 +53,14 @@ export class ReviewerStatistic {
     return median
   }
 
+  // get averageTotalReviewedPRCommentsCount() {
+  //   new Stats().push(this.reviewedPullRequests.map((pr) => pr.totalCommentsCount))
+  // }
+
   private reviews: Review[] = []
   private acceptedReviews: Review[] = []
   private requestedChangesReviews: Review[] = []
   private commentedReviews: Review[] = []
-
-  private get acceptedReviewsCount() {
-    return this.acceptedReviews.length
-  }
 
   private get commentedReviewsCount() {
     return this.commentedReviews.length
@@ -68,6 +68,14 @@ export class ReviewerStatistic {
 
   private get requestedChangesReviewsCount() {
     return this.requestedChangesReviews.length
+  }
+
+  private get reviewedPullRequests() {
+    const idToPR: Record<string, PullRequest> = {}
+    for (const review of this.reviews) {
+      idToPR[review.pullRequest.id] = review.pullRequest
+    }
+    return Object.values(idToPR)
   }
 
   constructor(public author: User) {}

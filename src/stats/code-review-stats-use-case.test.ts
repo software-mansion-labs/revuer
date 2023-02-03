@@ -10,6 +10,7 @@ it('should calculate stats correctly', () => {
       sizeInLOC: 21,
       author: { username: '_' },
       reviews: [],
+      totalCommentsCount: 0,
     })
       .addReview({
         author: { username: 'REVIEWER_1' },
@@ -24,6 +25,7 @@ it('should calculate stats correctly', () => {
       sizeInLOC: 37,
       author: { username: '_' },
       reviews: [],
+      totalCommentsCount: 0,
     })
       .addReview({
         author: { username: 'REVIEWER_1' },
