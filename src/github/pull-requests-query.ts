@@ -32,6 +32,7 @@ const QUERY = graphql(`
                     login
                   }
                   comments(first: 1) {
+                    totalCount
                     nodes {
                       bodyText
                       replyTo {
@@ -78,21 +79,25 @@ function convertPullRequestsQueryToPullRequests(
       totalCommentsCount: pullRequestNode.totalCommentsCount ?? 0,
       reviews: [],
     }
+
     const reviews: Review[] = []
     const reviewEdges = pullRequestNode.reviews?.edges ?? []
     for (const reviewEdge of reviewEdges) {
-      const commentNodes = reviewEdge?.node?.comments.nodes ?? []
+      const reviewNode = reviewEdge?.node
+      if (!reviewNode) continue
+      const commentNodes = reviewNode.comments.nodes ?? []
       const isQuickResponse =
-        commentNodes.length === 1 && !!commentNodes[0]!.replyTo
+        reviewNode.comments.totalCount === 1 && !!commentNodes[0]!.replyTo
       if (!isQuickResponse) {
-        reviewEdge?.node?.state
+        reviewNode.state
         reviews.push({
-          author: { username: reviewEdge?.node?.author?.login ?? '' },
-          status: convertReviewStatus(reviewEdge?.node?.state),
+          author: { username: reviewNode.author?.login ?? '' },
+          status: convertReviewStatus(reviewNode.state),
           pullRequest: pullRequest,
         })
       }
     }
+
     pullRequest.reviews = reviews
     pullRequests.push(pullRequest)
   }
