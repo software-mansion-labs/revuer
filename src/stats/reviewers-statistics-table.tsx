@@ -9,7 +9,7 @@ import {
 import { FC, useState } from 'react'
 import { styled } from '~/styling'
 import { palette } from '~/styling/palette'
-import { Text } from '~/ui'
+import { Icon, Text } from '~/ui'
 import { ReviewerStatistics } from './code-review-stats-use-case'
 
 const columnHelper = createColumnHelper<ReviewerStatistics>()
@@ -100,6 +100,7 @@ export const ReviewersStatisticsTable: FC<{
                 {header.isPlaceholder ? null : (
                   <SortableColumnHeader
                     onPress={header.column.getToggleSortingHandler()}
+                    columnSort={header.column.getIsSorted()}
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -130,8 +131,19 @@ export const ReviewersStatisticsTable: FC<{
 const SortableColumnHeader: FC<{
   children: any
   onPress?: (event: any) => void
-}> = ({ children, onPress }) => {
-  return <HeaderContainer onClick={onPress}>{children}</HeaderContainer>
+  columnSort: 'asc' | 'desc' | false
+}> = ({ children, onPress, columnSort }) => {
+  return (
+    <HeaderContainer onClick={onPress}>
+      {children}
+      {columnSort && (
+        <>
+          <Gutter />
+          <Icon name={columnSort === 'asc' ? 'arrowUp' : 'arrowDown'} />
+        </>
+      )}
+    </HeaderContainer>
+  )
 }
 
 const Table = styled('table', {
@@ -158,8 +170,17 @@ const HeaderContainer = styled('div', {
   paddingRight: 8,
   userSelect: 'none',
   color: '$primary50',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
 
   '&:hover': {
     color: '$secondary50',
   },
+})
+
+const Gutter = styled('div', {
+  height: 12,
+  width: 12,
 })
