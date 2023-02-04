@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useState } from 'react'
-import { Url } from '~/core'
+import { AppError, Url } from '~/core'
 import {
   fetchPullRequests,
   useGitHubConfiguration,
@@ -17,14 +17,21 @@ export default function Home() {
 
   async function handleGenerateStatistics() {
     if (client) {
-      const pullRequests = await fetchPullRequests(client, {
-        repoName: configuration.repositoryName,
-        repoOwner: configuration.organizationName,
-        lastMergedPullRequestsCount: configuration.lastMergedPullRequestsCount,
-      })
-      const useCase = new CodeReviewStatsUseCase()
-      const stats = Object.values(useCase.execute(pullRequests))
-      setStatistics(stats)
+      try {
+        const pullRequests = await fetchPullRequests(client, {
+          repoName: configuration.repositoryName,
+          repoOwner: configuration.organizationName,
+          lastMergedPullRequestsCount:
+            configuration.lastMergedPullRequestsCount,
+        })
+        const useCase = new CodeReviewStatsUseCase()
+        const stats = Object.values(useCase.execute(pullRequests))
+        setStatistics(stats)
+      } catch (err) {
+        if (err instanceof AppError) {
+          alert(err.message)
+        }
+      }
     }
   }
 

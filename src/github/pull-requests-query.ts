@@ -1,4 +1,5 @@
 import { Client } from 'urql'
+import { AppError } from '~/core'
 import { graphql } from '~/generated/gql'
 import {
   PullRequestReviewState,
@@ -58,8 +59,11 @@ export async function fetchPullRequests(
     lastMergedPullRequestsCount: number
   }
 ) {
-  const data = (await client.query(QUERY, args).toPromise()).data
-  return convertPullRequestsQueryToPullRequests(data)
+  const result = await client.query(QUERY, args).toPromise()
+  if (result.error) {
+    throw new AppError(result.error.message)
+  }
+  return convertPullRequestsQueryToPullRequests(result.data)
 }
 
 function convertPullRequestsQueryToPullRequests(
