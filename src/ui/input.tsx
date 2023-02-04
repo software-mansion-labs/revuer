@@ -30,6 +30,6 @@ const StyledInput = styled('input', {
   fontSize: 16,
   color: '$text00',
   '&:hover': {
-    borderColor: '$primary50',
+    borderColor: '$secondary50',
   },
 })

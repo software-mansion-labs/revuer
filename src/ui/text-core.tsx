@@ -11,6 +11,4 @@ export const TextCore: FC<TextCoreProps> = ({ value, align, children }) => {
   return <Container css={{ textAlign: align }}>{value || children}</Container>
 }
 
-const Container = styled('div', {
-  color: '$text00',
-})
+const Container = styled('div', {})

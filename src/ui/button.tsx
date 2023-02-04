@@ -49,7 +49,7 @@ const StyledButton = styled(ButtonUnstyled, {
         borderColor: '$primary90',
         cursor: 'pointer',
         '&:hover': {
-          borderColor: '$primary50',
+          borderColor: '$secondary50',
         },
       },
       disabled: {
@@ -65,6 +65,7 @@ const ContentContainer = styled('div', {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
+  color: '$text00',
 })
 
 const SpinnerContainer = styled('div', {

@@ -98,19 +98,14 @@ export const ReviewersStatisticsTable: FC<{
             {headerGroup.headers.map((header) => (
               <th key={header.id}>
                 {header.isPlaceholder ? null : (
-                  <div
-                    {...{
-                      className: header.column.getCanSort()
-                        ? 'cursor-pointer select-none'
-                        : '',
-                      onClick: header.column.getToggleSortingHandler(),
-                    }}
+                  <SortableColumnHeader
+                    onPress={header.column.getToggleSortingHandler()}
                   >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
                     )}
-                  </div>
+                  </SortableColumnHeader>
                 )}
               </th>
             ))}
@@ -132,6 +127,13 @@ export const ReviewersStatisticsTable: FC<{
   )
 }
 
+const SortableColumnHeader: FC<{
+  children: any
+  onPress?: (event: any) => void
+}> = ({ children, onPress }) => {
+  return <HeaderContainer onClick={onPress}>{children}</HeaderContainer>
+}
+
 const Table = styled('table', {
   borderWidth: 1,
   borderStyle: 'solid',
@@ -139,17 +141,25 @@ const Table = styled('table', {
   boxShadow: `0px 0px 16px ${palette.yellow25}`,
   borderRadius: 8,
 
-  th: {
-    padding: 16,
-    paddingLeft: 8,
-    paddingRight: 8,
-  },
-
   td: {
     padding: 8,
   },
 
   'tbody>tr:nth-child(odd)': {
     backgroundColor: 'rgba(255,255,255, 0.03)',
+  },
+})
+
+const HeaderContainer = styled('div', {
+  cursor: 'pointer',
+  height: '100%',
+  padding: 16,
+  paddingLeft: 8,
+  paddingRight: 8,
+  userSelect: 'none',
+  color: '$primary50',
+
+  '&:hover': {
+    color: '$secondary50',
   },
 })
