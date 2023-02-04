@@ -1,20 +1,37 @@
 import { ButtonUnstyled } from '@mui/base'
-import { FC } from 'react'
-import { styled } from '~/styling'
+import { FC, useState } from 'react'
+import { ThreeCircles } from 'react-loader-spinner'
+import { darkColors, styled } from '~/styling'
 import { Text } from './text'
 
 export const Button: FC<{
   label: string
-  onPress: () => void
+  onPress: () => Promise<void>
   disabled?: boolean
 }> = ({ label, onPress, disabled }) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const isDisabled = disabled || isLoading
   return (
     <StyledButton
-      state={disabled ? 'disabled' : 'active'}
-      onClick={disabled ? undefined : onPress}
-      disabled={disabled}
+      state={isDisabled ? 'disabled' : 'active'}
+      onClick={
+        isDisabled
+          ? undefined
+          : async () => {
+              setIsLoading(true)
+              await onPress()
+              setIsLoading(false)
+            }
+      }
+      disabled={isDisabled}
     >
-      <Text.Button value={label} />
+      <ContentContainer>
+        <Text.Button value={label} />
+        <SpinnerContainer visible={isLoading}>
+          <ThreeCircles color={darkColors.primary50} height={24} />
+        </SpinnerContainer>
+      </ContentContainer>
     </StyledButton>
   )
 }
@@ -31,7 +48,6 @@ const StyledButton = styled(ButtonUnstyled, {
         backgroundColor: '$primary75',
         borderColor: '$primary90',
         cursor: 'pointer',
-
         '&:hover': {
           borderColor: '$primary50',
         },
@@ -39,6 +55,31 @@ const StyledButton = styled(ButtonUnstyled, {
       disabled: {
         backgroundColor: '$background75',
         borderColor: '$background50',
+      },
+    },
+  },
+})
+
+const ContentContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+const SpinnerContainer = styled('div', {
+  transition: 'all 0.1s',
+
+  variants: {
+    visible: {
+      true: {
+        width: 24,
+        height: 24,
+        marginLeft: 16,
+      },
+      false: {
+        width: 0,
+        height: 24,
       },
     },
   },
