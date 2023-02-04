@@ -34,6 +34,10 @@ export class ReviewerStatistics {
     return this.reviews.length
   }
 
+  get reviewedPRsCount() {
+    return this.reviewedPullRequests.length
+  }
+
   get requestingChangesProbability() {
     return this.requestedChangesReviewsCount / (this.reviewsCount || 1)
   }

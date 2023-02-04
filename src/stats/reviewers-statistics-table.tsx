@@ -21,6 +21,12 @@ const columns = [
       return <Text.Button value={info.getValue()} align='center' />
     },
   }),
+  columnHelper.accessor('reviewedPRsCount', {
+    header: () => <HeaderText value='Reviewed PRs' />,
+    cell(info) {
+      return <CellText value={info.getValue().toString()} align='center' />
+    },
+  }),
   columnHelper.accessor('reviewsCount', {
     header: () => <HeaderText value='Reviews' />,
     cell(info) {
