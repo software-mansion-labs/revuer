@@ -33,12 +33,32 @@ const columns = [
       return <CellText value={info.getValue().toString()} align='center' />
     },
   }),
+  columnHelper.accessor('averageCommentsInReviewCount', {
+    header: () => <HeaderText value='Comments / Review' />,
+    cell(info) {
+      return (
+        <CellText
+          value={info.getValue().toFixed(1).toString()}
+          align='center'
+        />
+      )
+    },
+  }),
   columnHelper.accessor('linesOfCodePerComment', {
     header: () => <HeaderText value='LOC / Comment' />,
     cell(info) {
       const val = info.getValue()
       return (
-        <CellText value={val === 0 ? '—' : val.toFixed(0)} align='center' />
+        <CellText value={val === null ? '—' : val.toFixed(0)} align='center' />
+      )
+    },
+  }),
+  columnHelper.accessor('averageReviewedPRSizeInLOC', {
+    header: () => <HeaderText value='IQRed Average Reviewed PR Size [LOC]' />,
+    cell(info) {
+      const val = info.getValue()
+      return (
+        <CellText value={val === null ? '—' : val.toFixed(0)} align='center' />
       )
     },
   }),
@@ -55,30 +75,6 @@ const columns = [
     cell(info) {
       return (
         <CellText value={formatPercentage(info.getValue())} align='center' />
-      )
-    },
-  }),
-  columnHelper.accessor('averageReviewedPRSizeInLOC', {
-    header: () => <HeaderText value='Average Reviewed PR Size [LOC]' />,
-    cell(info) {
-      const val = info.getValue()
-
-      return (
-        <CellText
-          value={val === 0 ? '—' : info.getValue().toFixed(0)}
-          align='center'
-        />
-      )
-    },
-  }),
-  columnHelper.accessor('averageCommentsInReviewCount', {
-    header: () => <HeaderText value='Comments / Review' />,
-    cell(info) {
-      return (
-        <CellText
-          value={info.getValue().toFixed(1).toString()}
-          align='center'
-        />
       )
     },
   }),

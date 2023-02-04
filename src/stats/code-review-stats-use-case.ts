@@ -53,7 +53,8 @@ export class ReviewerStatistics {
     const pullRequestSizes = this.reviews.map((review) => {
       return review.pullRequest.sizeInLOC
     })
-    return new Stats().push(pullRequestSizes).iqr().amean() || 0
+    const mean = new Stats().push(pullRequestSizes).iqr().amean()
+    return isNaN(mean) ? null : mean
   }
 
   get averageTotalReviewedPRCommentsCount() {
@@ -69,6 +70,7 @@ export class ReviewerStatistics {
   }
 
   get linesOfCodePerComment() {
+    if (this.averageReviewedPRSizeInLOC === null) return null
     if (this.averageCommentsInReviewCount === 0) return 0
     return this.averageReviewedPRSizeInLOC / this.averageCommentsInReviewCount
   }
