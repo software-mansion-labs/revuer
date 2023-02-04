@@ -79,7 +79,7 @@ const ContentContainer = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 })
 
 const WidthLimiter = styled('div', {
@@ -91,6 +91,7 @@ const WidthLimiter = styled('div', {
 
 const Gutter = styled('div', {
   height: 16,
+  flexShrink: 0,
 })
 
 const Gradient = styled('div', {
