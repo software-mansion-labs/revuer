@@ -24,7 +24,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({
     <Container>
       <ContentContainer>
         <WidthLimiter>
-          <Text.Logo value='REVUE' align='center' />
+          <Text.Logo value='REVUER' align='center' />
           <Text.Button value='Code Review Statistics' align='center' />
           <Gutter />
           <Gutter />

@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Revue | GitHub Code Review Statistics</title>
+        <title>Revuer | GitHub Code Review Statistics</title>
         <meta
           name='description'
           content="Optimize your code review process with our website that provides in-depth statistics from your Github repository. Get a clear picture of your team's review activity. Start using our website today for a better code review experience."
