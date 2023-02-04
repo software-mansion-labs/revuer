@@ -29,7 +29,7 @@ export const Button: FC<{
       <ContentContainer>
         <Text.Button value={label} />
         <SpinnerContainer visible={isLoading}>
-          <ThreeCircles color={darkColors.primary50} height={24} />
+          <ThreeCircles color={darkColors.secondary50} height={24} />
         </SpinnerContainer>
       </ContentContainer>
     </StyledButton>

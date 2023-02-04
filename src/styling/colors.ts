@@ -12,6 +12,8 @@ export const darkColors = {
   primary75: palette.mint25,
   primary90: palette.mint10,
   primary95: palette.mint05,
+  secondary50: palette.yellow50,
+  secondary75: palette.yellow25,
 }
 
 export type Color = `$${keyof typeof darkColors}`

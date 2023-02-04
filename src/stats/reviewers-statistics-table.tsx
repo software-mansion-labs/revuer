@@ -2,9 +2,11 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { styled } from '~/styling'
 import { palette } from '~/styling/palette'
 import { Text } from '~/ui'
@@ -76,10 +78,16 @@ function formatPercentage(value: number) {
 export const ReviewersStatisticsTable: FC<{
   statistics: ReviewerStatistics[]
 }> = ({ statistics }) => {
+  const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data: statistics,
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
   })
 
   return (
@@ -89,12 +97,21 @@ export const ReviewersStatisticsTable: FC<{
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               <th key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
+                {header.isPlaceholder ? null : (
+                  <div
+                    {...{
+                      className: header.column.getCanSort()
+                        ? 'cursor-pointer select-none'
+                        : '',
+                      onClick: header.column.getToggleSortingHandler(),
+                    }}
+                  >
+                    {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
                     )}
+                  </div>
+                )}
               </th>
             ))}
           </tr>
@@ -119,7 +136,7 @@ const Table = styled('table', {
   borderWidth: 1,
   borderStyle: 'solid',
   borderColor: '$background90',
-  boxShadow: `0px 0px 16px ${palette.mint25}`,
+  boxShadow: `0px 0px 16px ${palette.yellow25}`,
   borderRadius: 8,
 
   th: {
