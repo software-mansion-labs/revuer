@@ -16,44 +16,51 @@ const columns = [
   columnHelper.accessor('author.username', {
     header: () => <HeaderText value='Username' />,
     cell(info) {
-      return <CellText value={info.getValue()} />
+      return <Text.Button value={info.getValue()} align='center' />
     },
   }),
   columnHelper.accessor('reviewsCount', {
     header: () => <HeaderText value='Reviews' />,
     cell(info) {
-      return <CellText value={info.getValue().toString()} align='end' />
+      return <CellText value={info.getValue().toString()} align='center' />
     },
   }),
   columnHelper.accessor('linesOfCodePerComment', {
     header: () => <HeaderText value='LOC / Comment' />,
     cell(info) {
-      return <CellText value={info.getValue().toFixed(0)} align='end' />
+      return <CellText value={info.getValue().toFixed(0)} align='center' />
     },
   }),
   columnHelper.accessor('notApprovingProbability', {
     header: () => <HeaderText value='Not Approving Probability' />,
     cell(info) {
-      return <CellText value={formatPercentage(info.getValue())} align='end' />
+      return (
+        <CellText value={formatPercentage(info.getValue())} align='center' />
+      )
     },
   }),
   columnHelper.accessor('requestingChangesProbability', {
     header: () => <HeaderText value='Requesting Changes Probability' />,
     cell(info) {
-      return <CellText value={formatPercentage(info.getValue())} align='end' />
+      return (
+        <CellText value={formatPercentage(info.getValue())} align='center' />
+      )
     },
   }),
-  columnHelper.accessor('averagedReviewedPRSizeInLOC', {
+  columnHelper.accessor('averageReviewedPRSizeInLOC', {
     header: () => <HeaderText value='Average Reviewed PR Size [LOC]' />,
     cell(info) {
-      return <CellText value={info.getValue().toFixed(0)} align='end' />
+      return <CellText value={info.getValue().toFixed(0)} align='center' />
     },
   }),
   columnHelper.accessor('averageCommentsInReviewCount', {
     header: () => <HeaderText value='Comments / Review' />,
     cell(info) {
       return (
-        <CellText value={info.getValue().toFixed(1).toString()} align='end' />
+        <CellText
+          value={info.getValue().toFixed(1).toString()}
+          align='center'
+        />
       )
     },
   }),
@@ -116,8 +123,9 @@ const Table = styled('table', {
   borderRadius: 8,
 
   th: {
-    paddingTop: 16,
-    paddingBottom: 16,
+    padding: 16,
+    paddingLeft: 8,
+    paddingRight: 8,
   },
 
   td: {
