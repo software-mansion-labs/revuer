@@ -25,10 +25,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({
       <ContentContainer>
         <WidthLimiter>
           <Text.Logo value='REVUE' align='center' />
-          <Text.Button
-            value='Code Review Statistics Generator'
-            align='center'
-          />
+          <Text.Button value='Code Review Statistics' align='center' />
           <Gutter />
           <Gutter />
           <Gutter />
