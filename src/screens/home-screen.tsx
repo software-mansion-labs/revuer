@@ -79,6 +79,7 @@ const ContentContainer = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+  overflowY: 'scroll',
 })
 
 const WidthLimiter = styled('div', {
