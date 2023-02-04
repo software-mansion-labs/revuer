@@ -53,7 +53,7 @@ export class ReviewerStatistics {
     const pullRequestSizes = this.reviews.map((review) => {
       return review.pullRequest.sizeInLOC
     })
-    return new Stats().push(pullRequestSizes).amean() || 0
+    return new Stats().push(pullRequestSizes).iqr().amean() || 0
   }
 
   get averageTotalReviewedPRCommentsCount() {

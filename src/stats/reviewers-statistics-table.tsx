@@ -36,7 +36,10 @@ const columns = [
   columnHelper.accessor('linesOfCodePerComment', {
     header: () => <HeaderText value='LOC / Comment' />,
     cell(info) {
-      return <CellText value={info.getValue().toFixed(0)} align='center' />
+      const val = info.getValue()
+      return (
+        <CellText value={val === 0 ? '—' : val.toFixed(0)} align='center' />
+      )
     },
   }),
   columnHelper.accessor('notApprovingProbability', {
@@ -58,7 +61,14 @@ const columns = [
   columnHelper.accessor('averageReviewedPRSizeInLOC', {
     header: () => <HeaderText value='Average Reviewed PR Size [LOC]' />,
     cell(info) {
-      return <CellText value={info.getValue().toFixed(0)} align='center' />
+      const val = info.getValue()
+
+      return (
+        <CellText
+          value={val === 0 ? '—' : info.getValue().toFixed(0)}
+          align='center'
+        />
+      )
     },
   }),
   columnHelper.accessor('averageCommentsInReviewCount', {
