@@ -89,6 +89,13 @@ export const GitHubConfigurationForm: FC<{
         renderLabel={() => (
           <Text.Label value='GitHub Classic Personal Access Token' />
         )}
+        renderFooter={() => (
+          <Text.Label>
+            Create and use a short lived token with read only permissions. If
+            your account has access to sensitive information, clone the app from
+            TODO:REPO_LINK, verify the code and run it locally.
+          </Text.Label>
+        )}
       >
         <Input
           type='password'

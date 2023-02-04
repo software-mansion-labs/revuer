@@ -3,12 +3,14 @@ import { styled } from '~/styling'
 
 export const InputWrapper: FC<{
   renderLabel: () => JSX.Element
+  renderFooter?: () => JSX.Element
   children: JSX.Element
-}> = ({ children, renderLabel }) => {
+}> = ({ children, renderLabel, renderFooter }) => {
   return (
     <Container>
       <Row>{renderLabel()}</Row>
       <Row>{children}</Row>
+      {renderFooter && <Row>{renderFooter()}</Row>}
     </Container>
   )
 }
