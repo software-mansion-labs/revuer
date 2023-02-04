@@ -94,7 +94,9 @@ function formatPercentage(value: number) {
 export const ReviewersStatisticsTable: FC<{
   statistics: ReviewerStatistics[]
 }> = ({ statistics }) => {
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: 'reviewedPRsCount', desc: true },
+  ])
   const table = useReactTable({
     data: statistics,
     columns: columns,
