@@ -1,16 +1,12 @@
 import { Stats } from 'fast-stats'
-import {
-  PullRequest,
-  PullRequestService,
-  Review,
-  User,
-} from './pull-request-service'
+import { PullRequest, Review, User } from './types'
 
+type Username = string
 export class CodeReviewStatsUseCase {
-  execute(pullRequests: PullRequest[]): Record<string, ReviewerStatistics> {
-    const usernameToStatsData: Record<string, ReviewerStatistics> = {}
-    for (const service of this.createPRServices(pullRequests)) {
-      for (const review of service.getReviews()) {
+  execute(pullRequests: PullRequest[]): Record<Username, ReviewerStatistics> {
+    const usernameToStatsData: Record<Username, ReviewerStatistics> = {}
+    for (const pr of pullRequests) {
+      for (const review of pr.reviews) {
         if (!usernameToStatsData[review.author.username]) {
           usernameToStatsData[review.author.username] = new ReviewerStatistics(
             review.author
@@ -20,12 +16,6 @@ export class CodeReviewStatsUseCase {
       }
     }
     return usernameToStatsData
-  }
-
-  private createPRServices(pullRequests: PullRequest[]): PullRequestService[] {
-    return pullRequests.map((pullRequest) => {
-      return new PullRequestService(pullRequest)
-    })
   }
 }
 

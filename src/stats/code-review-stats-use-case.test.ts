@@ -1,15 +1,14 @@
 import { CodeReviewStatsUseCase } from './code-review-stats-use-case'
-import { PullRequestService } from './pull-request-service'
+import { PullRequestBuilder } from './pull-request-builder'
 
 it('should calculate stats correctly', () => {
   const useCase = new CodeReviewStatsUseCase()
 
   const stats = useCase.execute([
-    new PullRequestService({
+    new PullRequestBuilder({
       id: 'pr1',
       sizeInLOC: 21,
       author: { username: '_' },
-      reviews: [],
       totalCommentsCount: 7,
     })
       .addReview({
@@ -37,12 +36,11 @@ it('should calculate stats correctly', () => {
         status: 'APPROVED',
         remarksCount: 1,
       })
-      .toPullRequest(),
-    new PullRequestService({
+      .build(),
+    new PullRequestBuilder({
       id: 'pr2',
       sizeInLOC: 37,
       author: { username: '_' },
-      reviews: [],
       totalCommentsCount: 2,
     })
       .addReview({
@@ -55,7 +53,7 @@ it('should calculate stats correctly', () => {
         status: 'APPROVED',
         remarksCount: 1,
       })
-      .toPullRequest(),
+      .build(),
   ])
 
   expect(stats['REVIEWER_1'].reviewsCount).toBe(5)

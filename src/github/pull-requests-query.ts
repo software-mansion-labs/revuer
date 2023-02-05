@@ -5,7 +5,7 @@ import {
   PullRequestReviewState,
   PullRequestsQuery,
 } from '~/generated/gql/graphql'
-import { PullRequest, Review, ReviewStatus } from '~/stats'
+import { PullRequest, PullRequestBuilder, Review, ReviewStatus } from '~/stats'
 
 const QUERY = graphql(`
   query PullRequests(
@@ -76,13 +76,12 @@ function convertPullRequestsQueryToPullRequests(
   for (const pullRequestEdge of pullRequestEdges) {
     const pullRequestNode = pullRequestEdge?.node
     if (!pullRequestNode) continue
-    const pullRequest: PullRequest = {
+    const pullRequestBuilder = new PullRequestBuilder({
       id: pullRequestNode.id,
       author: { username: pullRequestNode.author?.login ?? '' },
       sizeInLOC: pullRequestNode.additions + pullRequestNode.deletions,
       totalCommentsCount: pullRequestNode.totalCommentsCount ?? 0,
-      reviews: [],
-    }
+    })
 
     const reviews: Review[] = []
     const reviewEdges = pullRequestNode.reviews?.edges ?? []
@@ -94,17 +93,15 @@ function convertPullRequestsQueryToPullRequests(
         reviewNode.comments.totalCount === 1 && !!commentNodes[0]!.replyTo
       if (!isQuickResponse) {
         reviewNode.state
-        reviews.push({
+        pullRequestBuilder.addReview({
           author: { username: reviewNode.author?.login ?? '' },
           status: convertReviewStatus(reviewNode.state),
-          pullRequest: pullRequest,
           remarksCount: reviewNode.comments.totalCount,
         })
       }
     }
 
-    pullRequest.reviews = reviews
-    pullRequests.push(pullRequest)
+    pullRequests.push(pullRequestBuilder.build())
   }
   return pullRequests
 }
