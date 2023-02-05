@@ -10,9 +10,9 @@ import { FC, useState } from 'react'
 import { styled } from '~/styling'
 import { palette } from '~/styling/palette'
 import { Icon, Text } from '~/ui'
-import { ReviewerStatistics } from './code-review-stats-use-case'
+import { ReviewerSummary } from './code-review-stats-use-case'
 
-const columnHelper = createColumnHelper<ReviewerStatistics>()
+const columnHelper = createColumnHelper<ReviewerSummary>()
 
 const columns = [
   columnHelper.accessor('author.username', {
@@ -94,13 +94,13 @@ function formatPercentage(value: number) {
 }
 
 export const ReviewersStatisticsTable: FC<{
-  statistics: ReviewerStatistics[]
-}> = ({ statistics }) => {
+  reviewerSummaries: ReviewerSummary[]
+}> = ({ reviewerSummaries }) => {
   const [sorting, setSorting] = useState<SortingState>([
     { id: 'reviewedPRsCount', desc: true },
   ])
   const table = useReactTable({
-    data: statistics,
+    data: reviewerSummaries,
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
     state: {

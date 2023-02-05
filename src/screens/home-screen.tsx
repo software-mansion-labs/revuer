@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import { Url } from '~/core'
 import { GitHubConfiguration, GithubConfigurationProps } from '~/github'
-import { ReviewersStatisticsTable, ReviewerStatistics } from '~/stats'
+import { ReviewersStatisticsTable, ReviewerSummary } from '~/stats'
 import { styled } from '~/styling'
 import { Button, Input, InputWrapper, Text } from '~/ui'
 
 export type HomeScreenProps = {
   repoUrl: Url | undefined
   gitHubConfigurationProps: Omit<GithubConfigurationProps, 'url'>
-  statistics: ReviewerStatistics[] | undefined
+  reviewerSummaries: ReviewerSummary[] | undefined
   onRepoUrlChange: (url: Url | undefined) => void
   onGenerateStatistics: () => Promise<any>
 }
@@ -16,7 +16,7 @@ export type HomeScreenProps = {
 export const HomeScreen: FC<HomeScreenProps> = ({
   repoUrl,
   gitHubConfigurationProps,
-  statistics,
+  reviewerSummaries,
   onRepoUrlChange,
   onGenerateStatistics,
 }) => {
@@ -52,8 +52,8 @@ export const HomeScreen: FC<HomeScreenProps> = ({
           <Gutter />
           <Gutter />
           <Gutter />
-          {statistics !== undefined && (
-            <ReviewersStatisticsTable statistics={statistics} />
+          {reviewerSummaries !== undefined && (
+            <ReviewersStatisticsTable reviewerSummaries={reviewerSummaries} />
           )}
         </WidthLimiter>
       </ContentContainer>

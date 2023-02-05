@@ -7,13 +7,14 @@ import {
   useGitHubGQLClient,
 } from '~/github'
 import { HomeScreen } from '~/screens'
-import { CodeReviewStatsUseCase, ReviewerStatistics } from '~/stats'
+import { CodeReviewStatsUseCase, ReviewerSummary } from '~/stats'
 
 export default function Home() {
   const [repoUrl, setRepoUrl] = useState<Url>()
   const { configuration, setConfiguration } = useGitHubConfiguration()
   const client = useGitHubGQLClient(configuration.accessToken)
-  const [statistics, setStatistics] = useState<ReviewerStatistics[]>()
+  const [reviewerSummaries, setReviewerSummaries] =
+    useState<ReviewerSummary[]>()
 
   async function handleGenerateStatistics() {
     if (client) {
@@ -25,8 +26,8 @@ export default function Home() {
             configuration.lastMergedPullRequestsCount,
         })
         const useCase = new CodeReviewStatsUseCase()
-        const stats = Object.values(useCase.execute(pullRequests))
-        setStatistics(stats)
+        const summaries = Object.values(useCase.execute(pullRequests))
+        setReviewerSummaries(summaries)
       } catch (err) {
         if (err instanceof AppError) {
           alert(err.message)
@@ -49,7 +50,7 @@ export default function Home() {
         onRepoUrlChange={setRepoUrl}
         gitHubConfigurationProps={{ configuration, setConfiguration }}
         onGenerateStatistics={handleGenerateStatistics}
-        statistics={statistics}
+        reviewerSummaries={reviewerSummaries}
       />
     </>
   )

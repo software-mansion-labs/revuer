@@ -3,23 +3,22 @@ import { PullRequest, Review, User } from './types'
 
 type Username = string
 export class CodeReviewStatsUseCase {
-  execute(pullRequests: PullRequest[]): Record<Username, ReviewerStatistics> {
-    const usernameToStatsData: Record<Username, ReviewerStatistics> = {}
+  execute(pullRequests: PullRequest[]): Record<Username, ReviewerSummary> {
+    const usernameToReviewerSummary: Record<Username, ReviewerSummary> = {}
     for (const pr of pullRequests) {
       for (const review of pr.reviews) {
-        if (!usernameToStatsData[review.author.username]) {
-          usernameToStatsData[review.author.username] = new ReviewerStatistics(
-            review.author
-          )
+        if (!usernameToReviewerSummary[review.author.username]) {
+          usernameToReviewerSummary[review.author.username] =
+            new ReviewerSummary(review.author)
         }
-        usernameToStatsData[review.author.username].addReview(review)
+        usernameToReviewerSummary[review.author.username].addReview(review)
       }
     }
-    return usernameToStatsData
+    return usernameToReviewerSummary
   }
 }
 
-export class ReviewerStatistics {
+export class ReviewerSummary {
   get reviewsCount() {
     return this.reviews.length
   }

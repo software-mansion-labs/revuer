@@ -4,7 +4,7 @@ import { PullRequestBuilder } from './pull-request-builder'
 it('should calculate stats correctly', () => {
   const useCase = new CodeReviewStatsUseCase()
 
-  const stats = useCase.execute([
+  const usernameToSummary = useCase.execute([
     new PullRequestBuilder({
       id: 'pr1',
       sizeInLOC: 21,
@@ -56,15 +56,19 @@ it('should calculate stats correctly', () => {
       .build(),
   ])
 
-  expect(stats['REVIEWER_1'].reviewsCount).toBe(5)
-  expect(stats['REVIEWER_1'].reviewedPRsCount).toBe(2)
-  expect(stats['REVIEWER_1'].reviewsPerPR).toBe(5 / 2)
-  expect(stats['REVIEWER_1'].requestingChangesProbability).toBe(0.4)
-  expect(stats['REVIEWER_1'].averageReviewedPRSizeInLOC).toBe((21 + 37) / 2)
-  expect(stats['REVIEWER_1'].averageTotalReviewedPRCommentsCount).toBe(4.5)
-  expect(stats['REVIEWER_1'].averageRemarksInPRCount).toBe(
+  expect(usernameToSummary['REVIEWER_1'].reviewsCount).toBe(5)
+  expect(usernameToSummary['REVIEWER_1'].reviewedPRsCount).toBe(2)
+  expect(usernameToSummary['REVIEWER_1'].reviewsPerPR).toBe(5 / 2)
+  expect(usernameToSummary['REVIEWER_1'].requestingChangesProbability).toBe(0.4)
+  expect(usernameToSummary['REVIEWER_1'].averageReviewedPRSizeInLOC).toBe(
+    (21 + 37) / 2
+  )
+  expect(
+    usernameToSummary['REVIEWER_1'].averageTotalReviewedPRCommentsCount
+  ).toBe(4.5)
+  expect(usernameToSummary['REVIEWER_1'].averageRemarksInPRCount).toBe(
     (3 + 0 + 1 + 1 + 1) / 2
   )
-  expect(stats['REVIEWER_2'].reviewsCount).toBe(2)
-  expect(stats['REVIEWER_2'].notApprovingProbability).toBe(0.5)
+  expect(usernameToSummary['REVIEWER_2'].reviewsCount).toBe(2)
+  expect(usernameToSummary['REVIEWER_2'].notApprovingProbability).toBe(0.5)
 })
