@@ -68,6 +68,15 @@ const columns = [
       )
     },
   }),
+  columnHelper.accessor('medianReviewedPRSizeInLOC', {
+    header: () => <HeaderText value='Median Reviewed PR Size in LOC' />,
+    cell(info) {
+      const val = info.getValue()
+      return (
+        <CellText value={val === null ? '—' : val.toFixed(0)} align='center' />
+      )
+    },
+  }),
   columnHelper.accessor('notApprovingProbability', {
     header: () => <HeaderText value='Not Approving Probability' />,
     cell(info) {

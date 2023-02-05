@@ -66,6 +66,7 @@ const Container = styled('div', {
   overflow: 'hidden',
   width: '100%',
   height: '100%',
+  minWidth: 960,
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',

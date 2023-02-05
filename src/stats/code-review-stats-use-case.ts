@@ -46,6 +46,14 @@ export class ReviewerSummary {
     return isNaN(mean) ? null : mean
   }
 
+  get medianReviewedPRSizeInLOC() {
+    const pullRequestSizes = this.reviewedPRs.map((review) => {
+      return review.sizeInLOC
+    })
+    const mean = new Stats().push(pullRequestSizes).median()
+    return isNaN(mean) ? null : mean
+  }
+
   get averageTotalReviewedPRCommentsCount() {
     return new Stats()
       .push(this.reviewedPRs.map((pr) => pr.totalCommentsCount))
@@ -68,9 +76,15 @@ export class ReviewerSummary {
   }
 
   get linesOfCodePerComment() {
-    if (this.averageReviewedPRSizeInLOC === null) return null
+    if (
+      this.averageReviewedPRSizeInLOC === null ||
+      this.medianReviewedPRSizeInLOC === null
+    )
+      return null
+    const avgOfAvgAndMedian =
+      (this.averageReviewedPRSizeInLOC + this.medianReviewedPRSizeInLOC) / 2
     if (this.averageRemarksInPRCount === 0) return 0
-    return this.averageReviewedPRSizeInLOC / this.averageRemarksInPRCount
+    return avgOfAvgAndMedian / this.averageRemarksInPRCount
   }
 
   private reviews: Review[] = []
