@@ -5,7 +5,7 @@ import {
   PullRequestReviewState,
   PullRequestsQuery,
 } from '~/generated/gql/graphql'
-import { PullRequest, PullRequestBuilder, Review, ReviewStatus } from '~/stats'
+import { PullRequest, PullRequestBuilder, ReviewStatus } from '~/stats'
 
 const QUERY = graphql(`
   query PullRequests(
@@ -83,7 +83,6 @@ function convertPullRequestsQueryToPullRequests(
       totalCommentsCount: pullRequestNode.totalCommentsCount ?? 0,
     })
 
-    const reviews: Review[] = []
     const reviewEdges = pullRequestNode.reviews?.edges ?? []
     for (const reviewEdge of reviewEdges) {
       const reviewNode = reviewEdge?.node
