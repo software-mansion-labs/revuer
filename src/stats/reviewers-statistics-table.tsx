@@ -33,8 +33,8 @@ const columns = [
       return <CellText value={info.getValue().toString()} align='center' />
     },
   }),
-  columnHelper.accessor('averageCommentsInReviewCount', {
-    header: () => <HeaderText value='Comments / Review' />,
+  columnHelper.accessor('averageRemarksInPRCount', {
+    header: () => <HeaderText value='Remarks / Reviewed PR' />,
     cell(info) {
       return (
         <CellText
@@ -54,7 +54,7 @@ const columns = [
     },
   }),
   columnHelper.accessor('averageReviewedPRSizeInLOC', {
-    header: () => <HeaderText value='IQRed Average Reviewed PR Size [LOC]' />,
+    header: () => <HeaderText value='Average Reviewed PR Size' />,
     cell(info) {
       const val = info.getValue()
       return (

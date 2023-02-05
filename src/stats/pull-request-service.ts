@@ -21,7 +21,7 @@ export type Review = {
   author: User
   status: ReviewStatus
   pullRequest: PullRequest
-  totalCommentsCount: number
+  remarksCount: number
 }
 
 export class PullRequestService {

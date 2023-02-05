@@ -35,7 +35,7 @@ export class ReviewerStatistics {
   }
 
   get reviewedPRsCount() {
-    return this.reviewedPullRequests.length
+    return this.reviewedPRs.length
   }
 
   get requestingChangesProbability() {
@@ -50,29 +50,34 @@ export class ReviewerStatistics {
   }
 
   get averageReviewedPRSizeInLOC() {
-    const pullRequestSizes = this.reviews.map((review) => {
-      return review.pullRequest.sizeInLOC
+    const pullRequestSizes = this.reviewedPRs.map((review) => {
+      return review.sizeInLOC
     })
-    const mean = new Stats().push(pullRequestSizes).iqr().amean()
+    const mean = new Stats().push(pullRequestSizes).amean()
     return isNaN(mean) ? null : mean
   }
 
   get averageTotalReviewedPRCommentsCount() {
     return new Stats()
-      .push(this.reviewedPullRequests.map((pr) => pr.totalCommentsCount))
+      .push(this.reviewedPRs.map((pr) => pr.totalCommentsCount))
       .amean()
   }
 
-  get averageCommentsInReviewCount() {
-    return new Stats()
-      .push(this.reviews.map((pr) => pr.totalCommentsCount))
-      .amean()
+  get averageRemarksInPRCount() {
+    const prIdToRemarksCount: Record<string, number> = {}
+    for (const review of this.reviews) {
+      const prId = review.pullRequest.id
+      if (prIdToRemarksCount[prId] === undefined) prIdToRemarksCount[prId] = 0
+      prIdToRemarksCount[prId] += review.remarksCount
+    }
+
+    return new Stats().push(Object.values(prIdToRemarksCount)).amean()
   }
 
   get linesOfCodePerComment() {
     if (this.averageReviewedPRSizeInLOC === null) return null
-    if (this.averageCommentsInReviewCount === 0) return 0
-    return this.averageReviewedPRSizeInLOC / this.averageCommentsInReviewCount
+    if (this.averageRemarksInPRCount === 0) return 0
+    return this.averageReviewedPRSizeInLOC / this.averageRemarksInPRCount
   }
 
   private reviews: Review[] = []
@@ -88,7 +93,7 @@ export class ReviewerStatistics {
     return this.requestedChangesReviews.length
   }
 
-  private get reviewedPullRequests() {
+  private get reviewedPRs() {
     const idToPR: Record<string, PullRequest> = {}
     for (const review of this.reviews) {
       idToPR[review.pullRequest.id] = review.pullRequest

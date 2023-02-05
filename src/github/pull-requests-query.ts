@@ -98,7 +98,7 @@ function convertPullRequestsQueryToPullRequests(
           author: { username: reviewNode.author?.login ?? '' },
           status: convertReviewStatus(reviewNode.state),
           pullRequest: pullRequest,
-          totalCommentsCount: reviewNode.comments.totalCount,
+          remarksCount: reviewNode.comments.totalCount,
         })
       }
     }

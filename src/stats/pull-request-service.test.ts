@@ -12,7 +12,7 @@ function createPullRequestService(reviewStatuses: ReviewStatus[]) {
     service.addReview({
       status,
       author: { username: 'USER_2' },
-      totalCommentsCount: 0,
+      remarksCount: 0,
     })
   }
   return service
@@ -43,17 +43,17 @@ it('should create username to reviewer map', () => {
     .addReview({
       author: { username: 'USER_1' },
       status: 'COMMENTED',
-      totalCommentsCount: 1,
+      remarksCount: 1,
     })
     .addReview({
       author: { username: 'USER_2' },
       status: 'APPROVED',
-      totalCommentsCount: 2,
+      remarksCount: 2,
     })
     .addReview({
       author: { username: 'USER_3' },
       status: 'REQUESTED_CHANGES',
-      totalCommentsCount: 3,
+      remarksCount: 3,
     })
 
   const result = service.getUsernameToReviewer()

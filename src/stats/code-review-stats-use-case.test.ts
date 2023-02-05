@@ -15,22 +15,27 @@ it('should calculate stats correctly', () => {
       .addReview({
         author: { username: 'REVIEWER_1' },
         status: 'REQUESTED_CHANGES',
-        totalCommentsCount: 3,
+        remarksCount: 3,
       })
       .addReview({
         author: { username: 'REVIEWER_2' },
         status: 'COMMENTED',
-        totalCommentsCount: 2,
+        remarksCount: 2,
       })
       .addReview({
         author: { username: 'REVIEWER_2' },
         status: 'APPROVED',
-        totalCommentsCount: 1,
+        remarksCount: 1,
+      })
+      .addReview({
+        author: { username: 'REVIEWER_1' },
+        status: 'COMMENTED',
+        remarksCount: 0,
       })
       .addReview({
         author: { username: 'REVIEWER_1' },
         status: 'APPROVED',
-        totalCommentsCount: 1,
+        remarksCount: 1,
       })
       .toPullRequest(),
     new PullRequestService({
@@ -43,22 +48,24 @@ it('should calculate stats correctly', () => {
       .addReview({
         author: { username: 'REVIEWER_1' },
         status: 'REQUESTED_CHANGES',
-        totalCommentsCount: 1,
+        remarksCount: 1,
       })
       .addReview({
         author: { username: 'REVIEWER_1' },
         status: 'APPROVED',
-        totalCommentsCount: 1,
+        remarksCount: 1,
       })
       .toPullRequest(),
   ])
 
-  expect(stats['REVIEWER_1'].reviewsCount).toBe(4)
+  expect(stats['REVIEWER_1'].reviewsCount).toBe(5)
   expect(stats['REVIEWER_1'].reviewedPRsCount).toBe(2)
-  expect(stats['REVIEWER_1'].requestingChangesProbability).toBe(0.5)
+  expect(stats['REVIEWER_1'].requestingChangesProbability).toBe(0.4)
   expect(stats['REVIEWER_1'].averageReviewedPRSizeInLOC).toBe((21 + 37) / 2)
   expect(stats['REVIEWER_1'].averageTotalReviewedPRCommentsCount).toBe(4.5)
-  expect(stats['REVIEWER_1'].averageCommentsInReviewCount).toBe(6 / 4)
+  expect(stats['REVIEWER_1'].averageRemarksInPRCount).toBe(
+    (3 + 0 + 1 + 1 + 1) / 2
+  )
   expect(stats['REVIEWER_2'].reviewsCount).toBe(2)
   expect(stats['REVIEWER_2'].notApprovingProbability).toBe(0.5)
 })
