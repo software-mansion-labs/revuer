@@ -33,6 +33,12 @@ const columns = [
       return <CellText value={info.getValue().toString()} align='center' />
     },
   }),
+  columnHelper.accessor('reviewsPerPR', {
+    header: () => <HeaderText value='Reviews Per PR' />,
+    cell(info) {
+      return <CellText value={info.getValue().toFixed(1)} align='center' />
+    },
+  }),
   columnHelper.accessor('averageRemarksInPRCount', {
     header: () => <HeaderText value='Remarks / Reviewed PR' />,
     cell(info) {
@@ -45,7 +51,7 @@ const columns = [
     },
   }),
   columnHelper.accessor('linesOfCodePerComment', {
-    header: () => <HeaderText value='LOC / Comment' />,
+    header: () => <HeaderText value='LOC / Remark' />,
     cell(info) {
       const val = info.getValue()
       return (
@@ -54,7 +60,7 @@ const columns = [
     },
   }),
   columnHelper.accessor('averageReviewedPRSizeInLOC', {
-    header: () => <HeaderText value='Average Reviewed PR Size' />,
+    header: () => <HeaderText value='Average Reviewed PR Size in LOC' />,
     cell(info) {
       const val = info.getValue()
       return (

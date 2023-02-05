@@ -74,6 +74,10 @@ export class ReviewerStatistics {
     return new Stats().push(Object.values(prIdToRemarksCount)).amean()
   }
 
+  get reviewsPerPR() {
+    return this.reviewsCount / (this.reviewedPRsCount || 1)
+  }
+
   get linesOfCodePerComment() {
     if (this.averageReviewedPRSizeInLOC === null) return null
     if (this.averageRemarksInPRCount === 0) return 0
