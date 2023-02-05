@@ -1,5 +1,5 @@
 import { Stats } from 'fast-stats'
-import { PullRequest, Review, User } from './types'
+import type { PullRequest, Review, User } from './types'
 
 type Username = string
 export class CodeReviewStatsUseCase {
